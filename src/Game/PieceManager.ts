@@ -3,26 +3,30 @@ import {Board} from "./Board";
 import {Player} from "./Player";
 import {Simulate} from "react-dom/test-utils";
 import error = Simulate.error;
+import {Game} from "./Game";
 
 export class PieceManager {
+
+    readonly game: Game;
+
     statics: PieceStatic[] = [];
 
-    constructor() {
-
+    constructor(game: Game) {
+        this.game = game;
     }
 
-    generatePieceS(symbol: string, board: Board, player: Player, x: number, y: number): Piece {
+    generatePieceS(symbol: string, board: Board, player: Player): Piece {
         let p = this.findStaticWithSymbol(symbol);
-        console.log(`- Manager.GeneratePieceS symbol=${symbol} ${y}行 ${x}列 name=${this.symbolToName(symbol)} static.name=${p?.name}`);
+        console.log(`- Manager.GeneratePieceS symbol=${symbol} 行 列 name=${this.symbolToName(symbol)} static.name=${p?.name}`);
         // eslint-disable-next-line no-throw-literal
         if (p == null) throw `Piece with symbol "${symbol}" not Found`;
-        return new Piece(board, p, player, x, y);
+        return new Piece(this.game, board, p, player);
     }
-    generatePiece(name: string, board: Board, player: Player, x: number, y: number): Piece {
+    generatePiece(name: string, board: Board, player: Player): Piece {
         let p = this.findStaticWithName(name);
         // eslint-disable-next-line no-throw-literal
         if (p == null) throw `Piece with name "${name}" not Found`;
-        return new Piece(board, p, player, x, y);
+        return new Piece(this.game, board, p, player);
     }
 
     addStatic(piece: PieceStatic) : void {

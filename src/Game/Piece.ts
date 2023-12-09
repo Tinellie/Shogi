@@ -1,10 +1,12 @@
 import {Player} from "./Player";
 import {Board, Grid} from "./Board";
-import {P} from "./Game";
+import {Game, P} from "./Game";
 import * as cn from "chinese-numbering";
 
 
 export class Piece {
+    game: Game;
+
     player: Player;
     static: PieceStatic;
     promoted: boolean = false;
@@ -15,26 +17,36 @@ export class Piece {
     get symbol(): string {
         return this.static.symbol ?? this.name[0];
     }
+    //识别名, 即坐标加名字第一个字符
+    get id(): string {
+        return this.onBoard ?
+            this.game.rules.styledIndex(this.pos.x, this.pos.y) + this.name[0] :
+            this.name;
+    }
 
-    p: P;
-    absX = (rX: number) => this.p.x + rX ;//* this.player.direction;
-    absY = (rY: number) => this.p.y + rY * this.player.direction;
-    rX = (absX: number) => absX - this.p.x;//* this.player.direction;
-    rY = (absY: number) => (absY - this.p.y) / this.player.direction;//* this.player.direction;
+    onBoard: boolean = false;
+    pos: P;
+    absX = (rX: number) => this.pos.x + rX ;//* this.player.direction;
+    absY = (rY: number) => this.pos.y + rY * this.player.direction;
+    rX = (absX: number) => absX - this.pos.x;//* this.player.direction;
+    rY = (absY: number) => (absY - this.pos.y) / this.player.direction;//* this.player.direction;
 
-    constructor(board: Board, type: PieceStatic, player: Player, x: number, y: number) {
+    constructor(game: Game, board: Board, type: PieceStatic, player: Player) {
+        this.game = game;
+
         this.player = player;
         player.addPiece(this);
 
         this.static = type;
 
-        this.p = new P(x, y);
+        this.pos = new P(0,0);
+        this.onBoard = false;
 
         this.getPiece = (x, y) => board.g(this.absX(x), this.absY(y)).piece;
     }
 
     toString(): string {
-        return `${this.p.x}${cn.numberToChinese(this.p.y, "traditional")}${this.static}`;
+        return `${this.id}`;
     }
 
     belongTo = (player: Player) => player === this.player;

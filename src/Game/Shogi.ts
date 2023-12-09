@@ -10,11 +10,16 @@ import {
     Rook, RookPromoted,
     Silver, SilverPromoted
 } from "./Piece";
+import * as cn from "chinese-numbering";
 
 
 export class Shogi extends Rules{
 
-    override initPieces = () => [
+    override styledIndex = (x: number, y: number) => `${x+1}${cn.numberToChinese(y+1)}`
+
+
+
+    override initPieces = (game: Game) => [
         new Pawn(),
         new Lance(),
         new Knight(),
@@ -33,8 +38,8 @@ export class Shogi extends Rules{
     ]
 
 
-    override initBoard = () => {
-        let board: Board = Board.newBoard([
+    override initBoard = (game: Game) => {
+        let board: Board = Board.newBoard(game, [
             "         ",
             "         ",
             "         ",
@@ -45,8 +50,7 @@ export class Shogi extends Rules{
             " b     r ",
             "lksgxgskl",
 
-        ], Game.players.list);
-
+        ], game.players.list);
         return board;
     }
 
