@@ -1,5 +1,5 @@
 import {Piece} from "./Piece";
-import {P} from "./Game";
+import {Pos} from "./Pos";
 import {Simulate} from "react-dom/test-utils";
 import select = Simulate.select;
 

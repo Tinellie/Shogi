@@ -1,6 +1,7 @@
 import {Player} from "./Player";
 import {Board, Grid} from "./Board";
-import {Game, P} from "./Game";
+import {Game} from "./Game";
+import {Pos} from "./Pos";
 import * as cn from "chinese-numbering";
 
 
@@ -25,7 +26,7 @@ export class Piece {
     }
 
     onBoard: boolean = false;
-    pos: P;
+    pos: Pos;
     absX = (rX: number) => this.pos.x + rX ;//* this.player.direction;
     absY = (rY: number) => this.pos.y + rY * this.player.direction;
     rX = (absX: number) => absX - this.pos.x;//* this.player.direction;
@@ -39,7 +40,7 @@ export class Piece {
 
         this.static = type;
 
-        this.pos = new P(0,0);
+        this.pos = new Pos(0,0);
         this.onBoard = false;
 
         this.getPiece = (x, y) => board.g(this.absX(x), this.absY(y)).piece;
@@ -66,11 +67,15 @@ export class Piece {
         //console.log(`   = ${r}`);
         return r;
     }
+    isWalkableAbs (absX: number, absY: number): boolean {
+        return this.isWalkable(this.rX(absX), this.rY(absY));
+    }
+
 
 
     //逐个格子遍历, 获取能行走的棋子
-    getWalkableGrids(boardSize: P): P[] {
-        let walkableGrids: P[] = [];
+    getWalkableGrids(boardSize: Pos): Pos[] {
+        let walkableGrids: Pos[] = [];
         // console.log(`size ${boardSize.x},${boardSize.y}`);
         // console.log(`pos ${this.p.toString()}`);
         // console.log(`direction ${this.player.direction}`);
@@ -80,7 +85,7 @@ export class Piece {
             for(let y: number = 0; y < boardSize.y; y++) {
                 //console.log(`isWalkable (${x},${y}) => (${this.rX(x)},${this.rY(y)}) = ${this.isWalkable(this.rX(x), this.rY(y))}`);
                 if (this.isWalkable(this.rX(x), this.rY(y))) {
-                    walkableGrids[walkableGrids.length] = P.p(y, x);
+                    walkableGrids[walkableGrids.length] = Pos.p(y, x);
                 }
             }
         }
@@ -106,7 +111,7 @@ export class PieceStatic {
         return this.constructor.name;
     }
 
-    walkableGrids: P[] | null = [];
+    walkableGrids: Pos[] | null = [];
     longRange: boolean = false;
 
     constructor(name: string, symbol: string | null = null) {
@@ -118,12 +123,13 @@ export class PieceStatic {
         return this.name;
     }
 
-
+    //棋子静态资源判断移动的逻辑
+    //给定相对坐标, 返回格子是否能够移动
     public isWalkable : IsWalkableFunc
-        = (x: number, y: number, piece: GetPieceFunc, isAlliance: IsAllianceFunc): boolean =>
-        isAlliance(piece(x, y)) ? false :
+        = (rx: number, ry: number, piece: GetPieceFunc, isAlliance: IsAllianceFunc): boolean =>
+        isAlliance(piece(rx, ry)) ? false :
             //walkableGrids不为null, 且数组中能找到指定格子
-            this.walkableGrids?.find((p: P) => p.x === x && p.y === y) != null;
+            this.walkableGrids?.find((p: Pos) => p.x === rx && p.y === ry) != null;
 
 
     get promotable() : boolean {
@@ -185,7 +191,7 @@ class PieceStaticLancePromoted extends PieceStaticLance {
 export class Pawn extends PieceStatic {
     constructor() {
         super("步兵", "p");
-        this.walkableGrids = [ P.p(1, 0)];
+        this.walkableGrids = [ Pos.p(1, 0)];
         this.promote = () => new PawnPromoted();
     }
 }
@@ -202,7 +208,7 @@ export class Lance extends PieceStaticLance {
     constructor() {
         super("香車", "l");
         this.promote = () => new LancePromoted();
-        this.walkableGrids = [P.p(1, 0)];
+        this.walkableGrids = [Pos.p(1, 0)];
     }
 }
 export class LancePromoted extends PieceStatic {
@@ -217,7 +223,7 @@ export class LancePromoted extends PieceStatic {
 export class Knight extends PieceStatic {
     constructor() {
         super("桂馬", "k");
-        this.walkableGrids = P.array(
+        this.walkableGrids = Pos.array(
             [
                 [2, -1],
                 [2, 1]
@@ -237,7 +243,7 @@ export class KnightPromoted extends PieceStatic {
 export class Silver extends PieceStatic {
     constructor() {
         super("銀將", "s");
-        this.walkableGrids = P.array(
+        this.walkableGrids = Pos.array(
             [
                 [1, -1],
                 [1, 0],
@@ -259,7 +265,7 @@ export class SilverPromoted extends PieceStatic {
 
 export class Gold extends PieceStatic {
 
-    static walkableGrids = P.array(
+    static walkableGrids = Pos.array(
         [
             [1, -1],
             [1, 0],
@@ -278,7 +284,7 @@ export class Gold extends PieceStatic {
 
 export class Bishop extends PieceStaticLance {
     static walkableGrids =
-        P.array([
+        Pos.array([
             [-1, -1],
             [-1, 1],
             [1, -1],
@@ -302,7 +308,7 @@ export class BishopPromoted extends PieceStaticLancePromoted {
 
 export class Rook extends PieceStaticLance {
     static walkableGrids =
-        P.array([
+        Pos.array([
             [0, -1],
             [0,  1],
             [1,  0],

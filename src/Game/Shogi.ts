@@ -1,6 +1,6 @@
 import {Board} from "./Board";
 import {Rules} from "./Rules";
-import {Game, P} from "./Game"
+import {Game} from "./Game"
 import {
     Bishop, BishopPromoted,
     Gold, King,

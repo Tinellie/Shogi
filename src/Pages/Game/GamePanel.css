@@ -1,0 +1,291 @@
+
+@font-face {
+    font-family: "SH Serif - ExtraLight";
+    src: url('../../Fonts/SourceHanSerifTC-ExtraLight.otf') format('opentype');
+}
+@font-face {
+    font-family: "SH Serif - Light";
+    src: url('../../Fonts/SourceHanSerifTC-Light.otf') format("opentype");
+}
+@font-face {
+    font-family: "SH Serif - Regular";
+    src: url('../../Fonts/SourceHanSerifTC-Regular.otf') format('opentype');
+}
+@font-face {
+    font-family: "SH Serif - Medium";
+    src: url('../../Fonts/SourceHanSerifTC-Medium.otf') format('opentype');
+}
+@font-face {
+    font-family: "SH Serif - SemiBold";
+    src: url('../../Fonts/SourceHanSerifTC-SemiBold.otf') format('opentype');
+}
+@font-face {
+    font-family: "SH Serif - Bold";
+    src: url('../../Fonts/SourceHanSerifTC-Bold.otf') format('opentype');
+}
+@font-face {
+    font-family: "SH Serif - Heavy";
+    src: url('../../Fonts/SourceHanSerifTC-Heavy.otf') format('opentype');
+}
+@font-face {
+    font-family: "WHZ Regular - Bold";
+    src: url('../../Fonts/WangHanZong-Regular-Bold.ttf') format('truetype');
+}
+@font-face {
+    font-family: "WHZ SemiCursive - Medium";
+    src: url('../../Fonts/WangHanZong-SemiCursive-Medium.ttf') format('truetype');
+}
+@font-face {
+    font-family: "ZQLJ Cursive";
+    src: url('../../Fonts/ZhongQiLiuJiang-Cursive.ttf') format('truetype');
+}
+
+:root {
+    --color-light1: #ddd;
+    --color-light2: #999;
+    --color-light3: #555;
+    /*--color-player1: #ace;*/
+    /*--color-player2: #eaa;*/
+
+
+    --grid-size: 70px;
+    --grid-margin: 0px;/*5px;*/
+    --grid-padding: 5px;/*5px;*/
+
+    --grid-font-size: 22px;
+
+    --grid-svg-margin: 5%;
+    --grid-svg-size: calc(100% - var(--grid-svg-margin) * 2);
+
+    --color-player1: #a0d5ef;
+    --color-player2: #e0a5d0;
+}
+
+*, *::after, *::before {
+    box-sizing: border-box;
+    margin: 0;
+
+    font-family: "SH Serif - Regular", "Source Han Serif K VF", "思源宋体 VF", "思源黑体 VF", serif;
+    font-weight: normal;
+    color: var(--color-light1);
+
+    /*transition: 0.07s;*/
+}
+
+html, body, body > *, .App {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    background: #1b2128;
+}
+
+button {
+    vertical-align: middle;
+}
+
+
+#game-board {
+    align-self: center;
+
+    border: 3px solid var(--color-light2);
+    border-radius: 14px;
+    overflow: hidden;
+
+    padding: 3px;
+}
+#game-board-inner {
+    align-self: center;
+
+    border: 1px solid var(--color-light2);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.column-no div {
+    display: inline-block;
+
+    width: var(--grid-size);
+
+    height: calc(var(--grid-size) * 0.6);
+    margin: var(--grid-margin);
+}
+.row-no div {
+    display: block;
+
+    line-height: var(--grid-size);
+    height: var(--grid-size);
+
+    width: calc(var(--grid-size) * 0.6);
+    margin: calc(2*var(--grid-margin));
+}
+.column-no {
+    position: absolute;
+    transform: translate(0, calc(var(--grid-size) * -0.6));
+}
+.row-no {
+    position: absolute;
+    transform: translate(calc(var(--grid-size) * -0.6), calc(var(--grid-margin) * -1));
+}
+
+
+.grid, .grid > div {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.grid {
+    --bg-color: transparent;
+    /*--stripe-color: var(--color-light3) ;*/
+
+    /*top: 0;
+    left: 0;*/
+
+    position: relative;
+    width: var(--grid-size);
+    height: var(--grid-size);
+
+    color: var(--color-light1);
+    border: 1px solid var(--color-light2);
+    border-radius: 0;
+    background: var(--bg-color);
+
+    margin: var(--grid-margin);
+    padding: 0;
+
+    transition: 0.07s;
+}
+
+.grid.selectable {
+    --color-stripe: var(--color-player1);
+}
+.grid.selectable.inverse {
+    --color-stripe: var(--color-player2);
+}
+
+.grid.selectable{
+    --stripe-start: -0.5%;
+    --stripe-end: calc(var(--stripe-start) + 1.5%);
+    --stripe-gap-end: 12%;
+
+    background: repeating-linear-gradient(
+            45deg,
+            var(--color-stripe) var(--stripe-start),
+            var(--color-stripe) var(--stripe-end),
+            var(--bg-color) var(--stripe-end),
+            var(--bg-color) var(--stripe-gap-end)
+    );
+}
+.grid.selectable .piece.inverse:not(.direct) {
+    background: #f55;
+}
+
+.grid > div {
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+
+    padding: var(--grid-padding);
+}
+.grid > div > p {
+    margin: auto calc(50% - var(--grid-font-size) / 2);
+    width: var(--grid-font-size);
+    height: auto;
+    text-align: center;
+
+    font-family: "SH Serif - SemiBold", "Source Han Serif K VF", "思源宋体 VF", "思源黑体 VF", serif;
+    font-size: var(--grid-font-size);
+    line-height: calc(var(--grid-font-size));
+    font-weight: lighter;
+
+    /*background-image: url("../Imgs/ShogiPiece.svg");*/
+}
+
+.piece svg {
+    position: absolute;
+    width: var(--grid-svg-size);
+    height: var(--grid-svg-size);
+    top: var(--grid-svg-margin);
+    left: var(--grid-svg-margin);
+}
+.piece > svg > path {
+    fill: #1b2128;
+}
+.piece > p {
+    z-index: 10;
+}
+
+
+/*敌方棋子*/
+.piece.inverse > * {
+    transform: rotate(180deg);
+    transition: 0s;
+}
+.piece > p {
+    color: var(--color-player1);
+}
+.piece > svg > path {
+    stroke: var(--color-player1);
+}
+.piece.inverse > p {
+    color: var(--color-player2);
+}
+.piece.inverse > svg > path {
+    stroke: var(--color-player2);
+}
+
+.board-row {
+    display: flex;
+}
+.board-row:nth-child(1) .grid {
+    border-top: 0;
+}
+.board-row:nth-last-child(1) .grid {
+    border-bottom: 0;
+}
+.board-row .grid:nth-last-child(1) {
+    border-right: 0;
+}
+.board-row .grid:nth-child(1) {
+    border-left: 0;
+}
+.board-row:nth-child(2n) .grid:nth-child(2n+1),
+.board-row:nth-child(2n+1) .grid:nth-child(2n) {
+    --bg-color: #6665;
+    /*--stripe-color: transparent;*/
+}
+
+/*悬浮点击效果*/
+.grid:hover > div {
+    background-color: #0006;
+}
+.grid:hover::after {
+    --dp: 3px;
+
+    position: absolute;
+    top: calc(var(--dp) * -1);
+    left: calc(var(--dp) * -1);
+
+    content: "";
+    width: calc(100% + var(--dp) + var(--dp));
+    height: calc(100% + var(--dp) + var(--dp));
+    z-index: 100;
+
+    border: var(--color-light1) 3px solid;
+    border-radius: 5px;
+
+    /*animation: gridHover 0.2s;*/
+}
+
+@keyframes gridHover {
+    from { --dp: 1px; }
+    to { --dp: 3px; }
+}
+
+.grid:active {
+    background-color: #0006;
+}

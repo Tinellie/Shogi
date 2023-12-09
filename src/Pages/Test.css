@@ -1,0 +1,19 @@
+
+.Test, .Test *{
+    font-family: 'JetBrains Mono', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
+.Test{
+    padding: 20px;
+}
+
+input, button {
+    width: 50px;
+    background-color: #1b2128;
+}
+* {
+    font-size: 14px;
+    line-height: 15px;
+}

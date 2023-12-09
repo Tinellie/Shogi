@@ -1,6 +1,7 @@
 import {Piece} from "./Piece";
 import {Player} from "./Player";
-import {Game, P} from "./Game"
+import {Game} from "./Game"
+import {Pos} from "./Pos";
 import {PieceManager} from "./PieceManager";
 import {Simulate} from "react-dom/test-utils";
 import error = Simulate.error;
@@ -9,17 +10,17 @@ export class Board {
 
     readonly game: Game;
 
-    size: P;
+    size: Pos;
 
     grids : Grid[][];
     g(x : number, y : number) : Grid {
         return this.grids[y][x];
     }
-    p(pos : P) : Grid {
+    p(pos : Pos) : Grid {
         return this.g(pos.x, pos.y);
     }
 
-    constructor(game: Game, size: P) {
+    constructor(game: Game, size: Pos) {
         this.game = game;
         this.size = size;
         this.grids = [];
@@ -37,7 +38,7 @@ export class Board {
         console.log(`- for reference - Piece Static -`);
         console.log(game.pieces.statics);
 
-        let size: P = P.p(data.length, data[0].length);
+        let size: Pos = Pos.p(data.length, data[0].length);
         let board: Board = new Board(game, size);
 
         //遍历玩家
@@ -75,7 +76,7 @@ export class Board {
     //生成有给定符号的棋子
     generatePieceS(symbol: string, player: Player, x: number, y: number): void {
         console.log(`start generate piece ${symbol} at (${x}, ${y})`);
-        this.place(this.game.pieces.generatePieceS(symbol, this, player), new P(x, y));
+        this.place(this.game.pieces.generatePieceS(symbol, this, player), new Pos(x, y));
     }
 
     toString(): string {
@@ -89,14 +90,16 @@ export class Board {
         return result;
     }
 
+
     handleClick(x : number, y : number, player : Player) : void {
-        console.log(`Handle Click: (${x},${y}), player: ${player._getData()}`)
+        console.log(`Handle Click: (${x},${y}), player: ${player.direction/*_getData()*/}`)
         let currentPiece = this.g(x, y).piece;
 
         if (player.selectedPiece === null ||
             (currentPiece?.player === player && currentPiece !== player.selectedPiece)) {
             //如果没有选择棋子
             //或点击的格子是属于玩家的棋子, 且不等于当前选择的棋子 那么选择格子
+
             console.log(currentPiece);
             console.log(`belong to current player? ${currentPiece?.player === player}`);
             if (currentPiece !== null && currentPiece.player === player) {
@@ -109,7 +112,7 @@ export class Board {
             //且点选的格子不属于自己, 或是点选已选择的格子
             //那么判断是否能够移动
             //移动棋子, 如果点选了无法移动的格子会返回 false
-            this.tryMove(player.selectedPiece, new P(x, y));
+            this.tryMove(player.selectedPiece, new Pos(x, y));
             //清除已选棋子;
             player.selectedPiece = null;
         }
@@ -133,25 +136,25 @@ export class Board {
         console.warn(`piece ${piece.name}, walkable Grids: ${"\n" +output}`);
     }
 
-    isValidWalkableGrid(piece: Piece | null, pos: P): boolean {
+    isValidWalkableGrid(piece: Piece | null, pos: Pos): boolean {
         return piece !== null &&
             piece.isWalkable(piece.rX(pos.x), piece.rY(pos.y)) &&
-            this.isValidMove(piece, new P(pos.x, pos.y));
+            this.isValidMove(piece, new Pos(pos.x, pos.y));
 
     }
     //给定棋子, 获取该棋子 可移动的格子坐标列表
-    getValidWalkableGrids(piece: Piece | null): P[] {
+    getValidWalkableGrids(piece: Piece | null): Pos[] {
         if (piece === null) return [];
 
         //调用 piece 的函数, 获取 piece 可以移动的格子
-        let walkableGrids: P[]
+        let walkableGrids: Pos[]
             = piece.getWalkableGrids(this.size);
         //输出判断合法性前的格子数量
         console.log(`No of WalkableGrids = ${walkableGrids.length}`);
         console.log(walkableGrids);
 
         //遍历 piece 可移动的格子, 从棋盘角度判断移动合法性(会不会导致被诘将)
-        let walkableGrids2: P[] = [];
+        let walkableGrids2: Pos[] = [];
         walkableGrids.forEach(
             (pos) => {
                 if(this.isValidMove(piece, pos)) walkableGrids2[walkableGrids2.length] = pos;
@@ -163,7 +166,7 @@ export class Board {
     }
 
     //检查棋子是否可以移动 (是否会将军等问题)
-    isValidMove(piece: Piece, pos: P): boolean {
+    isValidMove(piece: Piece, pos: Pos): boolean {
         // if(/*正在将军*/) {
         //     //检查移动后是否解决将军
         //     if (/*没解决*/) return false;
@@ -176,16 +179,25 @@ export class Board {
         return true;
     }
 
-    tryMove(piece: Piece, pos: P): boolean {
+    tryMove(piece: Piece, pos: Pos): boolean {
+        console.log(`- try move ${piece.id} to ${pos}`);
+
         //如果不是可移动的格子, 直接返回假
-        if (!this.isValidWalkableGrid(piece, pos)) return false;
+        if (!this.isValidWalkableGrid(piece, pos)) {
+            console.log(`- not valid movable grid`)
+            return false;
+        }
 
         //如果目标格子有敌对棋子, 捕获它
         let piece2 = this.p(pos).piece;
         if (piece2 !== null){
-            if (piece.player.isEnemy(piece2.player)) this.capturePiece(piece.player, piece2);
+            if (piece.player.isEnemy(piece2.player)) {
+                console.log(`- capture ${piece2.id}`);
+                this.capturePiece(piece.player, piece2);
+            }
         }
 
+        console.log(`- move ${piece.id} to ${pos}`);
         //移动棋子
         this.move(piece, pos);
 
@@ -196,13 +208,13 @@ export class Board {
         this.p(piece.pos).piece = null;
         piece.onBoard = false;
     }
-    private place(piece: Piece, pos: P) {
+    private place(piece: Piece, pos: Pos) {
         piece.pos = pos;
         this.p(pos).piece = piece;
         piece.onBoard = true;
     }
     //移动棋子, 如果目标格子被占据会报错
-    private move(piece: Piece, pos: P){
+    private move(piece: Piece, pos: Pos){
         if (this.occupied(pos))
             throw new Error(`Piece ${piece} tried to move to Grid ${pos} which has been occupied by ${this.p(pos).piece}`);
         //把棋子从棋盘上移走
@@ -210,7 +222,7 @@ export class Board {
         this.place(piece, pos);
     }
     //返回格子是否被占据
-    occupied(pos: P): boolean {
+    occupied(pos: Pos): boolean {
         return this.p(pos).piece !== null;
     }
 
