@@ -45,7 +45,7 @@ export class Player {
     }
 
     select(piece: Piece) : void {
-        console.log(`select ${piece.id}`)
+        console.log(`- select ${piece.id}`)
         this.selectedPiece = piece;
     }
     selectClear() : void {

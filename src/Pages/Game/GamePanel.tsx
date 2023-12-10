@@ -16,10 +16,11 @@ export function GamePanel({game}: {game: Game}) {
         <div id="Game" className="Game">
             <BoardPanel boardData={GetData.GetBoardData(game, game.board)}
                         handleClick={(x, y) => {
-                            game.board.handleClick(x, y, game.currentPlayer)
+                            game.board.handleClick(x, y, game.players.current)
                             setCount(count+1);
                         }
-                        }/>
+                        }
+                        rowNoType="number" columnNoType="chinese"/>
         </div>
     )
 }

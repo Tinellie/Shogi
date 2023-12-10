@@ -17,19 +17,17 @@ export class Game {
     rules : Rules;
 
     pieces: PieceManager;
-    players: PlayerManager = new PlayerManager();
+    players: PlayerManager;
 
-    currentPlayer: Player;
 
     constructor(rules: Rules) {
         this.rules = rules;
 
-
-        this.players.list[0] = new Player(1);
-        this.players.list[1] = new Player(-1);
+        this.players = new PlayerManager([
+            new Player(1),
+            new Player(-1)
+        ])
         console.error("new Player");
-
-        this.currentPlayer = this.players.list[0];
 
         this.pieces = new PieceManager(this)
         this.pieces.clearStatics();

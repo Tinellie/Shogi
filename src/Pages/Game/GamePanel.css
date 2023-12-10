@@ -183,6 +183,9 @@ button {
 .grid.selectable .piece.inverse:not(.direct) {
     background: #f55;
 }
+.grid.selectable .piece.direct:not(.inverse) {
+    background: #f55;
+}
 
 .grid > div {
     z-index: 10;

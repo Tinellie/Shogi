@@ -1,6 +1,7 @@
 import {JSX, useState} from "react";
 import {Game} from "../../Game/Game";
 //import {boardPanel, Grid} from "../../Game/boardPanel";
+import {GridNumbers} from "./GridNumbers";
 
 import {PieceData, GridData, RowData, BoardData} from "../../Game/GetData";
 
@@ -13,8 +14,9 @@ export function map(length: number, func: (i: number) => JSX.Element){
 
 
 
-export function BoardPanel({boardData, handleClick}:
-                          {boardData: BoardData, handleClick: (x: number, y: number) => void}) {
+export function BoardPanel({boardData, handleClick, rowNoType, columnNoType}:
+                          {boardData: BoardData, handleClick: (x: number, y: number) => void
+                              rowNoType: string, columnNoType: string}) {
 
 
 
@@ -28,6 +30,9 @@ export function BoardPanel({boardData, handleClick}:
 
     return (
         <div id="game-board">
+            <GridNumbers
+                width={boardData.size.x} height={boardData.size.y}
+                rowNoType={rowNoType} columnNoType={columnNoType}/>
             <div id="game-board-inner">
             {
                 map(
@@ -67,9 +72,7 @@ function Grid({grid, handleClick}: {grid: GridData, handleClick: ()=>void}){
     return (
         <button
             className={`grid${grid.selectable? " selectable" : ""}` +
-                (grid.piece !== null && grid.piece !== undefined?
-                    grid.piece.direction === -1 ? " inverse" : " direct" :
-                    "")}
+                (grid.currentPlayerDirection === -1 ? " inverse" : " direct")}
             onClick={() => handleClick() }
         >
             { (grid.piece != null) ? <Piece piece={grid.piece}/> : null }

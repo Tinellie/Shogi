@@ -101,7 +101,7 @@ export class Board {
             //或点击的格子是属于玩家的棋子, 且不等于当前选择的棋子 那么选择格子
 
             console.log(currentPiece);
-            console.log(`belong to current player? ${currentPiece?.player === player}`);
+            console.log(`- belong to current player? ${currentPiece?.player === player}`);
             if (currentPiece !== null && currentPiece.player === player) {
                 player.select(currentPiece);
                 //获取该棋子可移动的格子, 设置高亮
@@ -112,7 +112,10 @@ export class Board {
             //且点选的格子不属于自己, 或是点选已选择的格子
             //那么判断是否能够移动
             //移动棋子, 如果点选了无法移动的格子会返回 false
-            this.tryMove(player.selectedPiece, new Pos(x, y));
+            if (this.tryMove(player.selectedPiece, new Pos(x, y))){
+                this.game.players.nextPlayer();
+                console.log("-------- turn ends --------")
+            }
             //清除已选棋子;
             player.selectedPiece = null;
         }
