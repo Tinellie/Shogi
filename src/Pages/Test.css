@@ -9,9 +9,31 @@
     padding: 20px;
 }
 
+.Test>* {
+    margin: 20px;
+}
+
 input, button {
+    margin: 5px;
+    height: 20px;
     width: 50px;
     background-color: #1b2128;
+    border: solid 1px #bbb;
+    border-radius: 5px;
+}
+input:hover, button:hover {
+    background-color: #101918;
+}
+input:active, button:active {
+    background-color: #050909;
+    border: solid 2px #bbb;
+}
+
+button{
+    width: fit-content;
+}
+#PlayerData {
+    width: 40%;
 }
 * {
     font-size: 14px;

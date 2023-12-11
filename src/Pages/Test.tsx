@@ -81,11 +81,14 @@ export function Test({game} : {game: Game}) {
                 {`X: ${X}, Y: ${Y}`}
             </div>
             <div>{content.map((v) => <p>{v}</p>)}</div>
-            player: <input id="currentPlayer" onChange={e => setPlayer(parseInt(e.target.value)%2)}/><br/>
-            x<input id="inputX" onChange={e => setX(parseInt(e.target.value))}/>
-            y<input id="inputY" onChange={e => setY(parseInt(e.target.value))}/>
-            <button onClick={()=>{game.board.handleClick(X, Y, game.players.list[currentPlayer]); setUpdate(update+1)}}>Click</button>
             <div>
+                player: <br/><input id="currentPlayer" onChange={e => setPlayer(parseInt(e.target.value)%2)}/>
+                <br/>x<input id="inputX" onChange={e => setX(parseInt(e.target.value))}/>
+                <br/>y<input id="inputY" onChange={e => setY(parseInt(e.target.value))}/>
+                <br/><button onClick={()=>{game.board.handleClick(X, Y, game.players.list[currentPlayer]); setUpdate(update+1)}}>Click</button>
+            </div>
+
+            <div id="PlayerData">
                 {
                     game.players._getData().map(
                         (data, index) =>

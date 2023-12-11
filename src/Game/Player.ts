@@ -5,6 +5,8 @@ import select = Simulate.select;
 
 
 export class Player {
+    readonly id: number;
+
     direction : number;
 
     pieces: Piece[] = [];
@@ -12,9 +14,14 @@ export class Player {
 
     selectedPiece : Piece | null = null;
 
-    constructor(direction : number) {
+    constructor(id: number, direction : number) {
+        this.id = id;
         //this.capturedPiece = [];
         this.direction = direction;
+    }
+
+    toString(): string {
+        return `Player #${this.id}`;
     }
 
     _getData(): string[] {
@@ -38,10 +45,19 @@ export class Player {
     }
 
     addPiece(piece: Piece): void {
-        this.pieces[this.pieces.length] = piece;
+        this.pieces.push(piece);
     }
+    removePiece(piece: Piece): void {
+        let i = this.pieces.findIndex((piece2) => piece2.id === piece.id);
+        if (i === -1) throw new Error(`Piece Not Found when trying to remove piece ${piece.id} from ${this}`);
+        for (i++; i < this.pieces.length; i++) {
+            this.pieces[i-1] = this.pieces[i];
+        }
+        this.pieces.pop();
+    }
+
     addCapturePiece(piece: Piece): void{
-        this.capturedPieces[this.pieces.length] = piece;
+        this.capturedPieces.push(piece);
     }
 
     select(piece: Piece) : void {

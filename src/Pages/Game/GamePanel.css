@@ -73,13 +73,18 @@
 
     /*transition: 0.07s;*/
 }
+html, body, body > *{
 
-html, body, body > *, .App {
+}
+.App {
+    padding: 20px;
+}
+.App > div {
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    /*align-items: center;*/
 }
 
 body {

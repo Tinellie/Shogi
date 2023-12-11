@@ -207,33 +207,40 @@ export class Board {
         return true;
     }
 
+    //把棋子从棋盘上移除
     private remove(piece: Piece){
         this.p(piece.pos).piece = null;
         piece.onBoard = false;
     }
+    //把棋子放置到棋盘上指定位置, 如果目标格子被占据会报错
     private place(piece: Piece, pos: Pos) {
+        if (this.occupied(pos))
+            throw new Error(`Piece ${piece} tried to move to Grid ${pos} which has been occupied by ${this.p(pos).piece}`);
         piece.pos = pos;
         this.p(pos).piece = piece;
         piece.onBoard = true;
     }
-    //移动棋子, 如果目标格子被占据会报错
+
+    //移动棋子到棋盘上指定位置, 如果目标格子被占据会报错
     private move(piece: Piece, pos: Pos){
-        if (this.occupied(pos))
-            throw new Error(`Piece ${piece} tried to move to Grid ${pos} which has been occupied by ${this.p(pos).piece}`);
         //把棋子从棋盘上移走
         this.remove(piece);
         this.place(piece, pos);
     }
+
     //返回格子是否被占据
     occupied(pos: Pos): boolean {
         return this.p(pos).piece !== null;
     }
 
+    //把棋子从棋盘上移除, 并转交所有权
     capturePiece(player: Player, piece: Piece): void {
+        //移除棋盘上的棋子
+        this.remove(piece);
+        //把棋子从原来的玩家处移除
+        piece.player.removePiece(piece);
         //把棋子添加到玩家的持驹台
         player.addCapturePiece(piece);
-        //移除棋盘上的棋子
-        this.p(piece.pos).piece = null;
     }
 
 

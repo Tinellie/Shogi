@@ -1,7 +1,10 @@
 import {Player} from "./Player";
 import {JSX} from "react";
+import {Game} from "./Game";
 
 export class PlayerManager {
+
+    readonly game: Game;
     list: Player[];
 
 
@@ -10,8 +13,13 @@ export class PlayerManager {
         return this.list[this.currentIndex];
     }
 
-    constructor(players: Player[]) {
-        this.list = players;
+    constructor(game: Game, playersNo: number) {
+        this.game = game;
+        this.list = [];
+        for (let i = 0; i < playersNo; i++){
+            this.list.push(new Player(i, (i % 2 === 0) ? 1: -1))
+
+        }
         this.currentIndex = 0;
     }
 
@@ -25,6 +33,7 @@ export class PlayerManager {
     }
 
     nextPlayer() {
+        if (this.game.settings.dontSwitchPlayer) return;
         this.currentIndex ++;
         this.currentIndex %= this.list.length;
     }

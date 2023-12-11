@@ -4,6 +4,7 @@ import {PieceManager} from "./PieceManager";
 import {PlayerManager} from "./PlayerManager";
 import {Shogi} from "./Shogi";
 import {Player} from "./Player";
+import {Settings} from "./Settings";
 
 
 export const PieceTypes = [1,2,3];
@@ -19,14 +20,13 @@ export class Game {
     pieces: PieceManager;
     players: PlayerManager;
 
+    settings: Settings = new Settings();
+
 
     constructor(rules: Rules) {
         this.rules = rules;
 
-        this.players = new PlayerManager([
-            new Player(1),
-            new Player(-1)
-        ])
+        this.players = new PlayerManager(this,2)
         console.error("new Player");
 
         this.pieces = new PieceManager(this)
