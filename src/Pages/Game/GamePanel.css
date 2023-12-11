@@ -59,6 +59,8 @@
 
     --color-player1: #a0d5ef;
     --color-player2: #e0a5d0;
+
+    --inner-border-radius: 10px;
 }
 
 *, *::after, *::before {
@@ -94,7 +96,7 @@ button {
 
     border: 3px solid var(--color-light2);
     border-radius: 14px;
-    overflow: hidden;
+    /*overflow: hidden;*/
 
     padding: 3px;
 }
@@ -102,8 +104,8 @@ button {
     align-self: center;
 
     border: 1px solid var(--color-light2);
-    border-radius: 10px;
-    overflow: hidden;
+    border-radius: var(--inner-border-radius);
+    /*overflow: hidden;*/
 }
 
 .column-no div {
@@ -150,8 +152,6 @@ button {
     height: var(--grid-size);
 
     color: var(--color-light1);
-    border: 1px solid var(--color-light2);
-    border-radius: 0;
     background: var(--bg-color);
 
     margin: var(--grid-margin);
@@ -241,21 +241,52 @@ button {
     stroke: var(--color-player2);
 }
 
+.grid:not(.grid:hover) {
+    border: 1px solid var(--color-light2);
+    border-radius: 0;
+}
+
 .board-row {
     display: flex;
 }
 .board-row:nth-child(1) .grid {
+    /*顶部的格子*/
     border-top: 0;
 }
 .board-row:nth-last-child(1) .grid {
+    /*底部的格子*/
     border-bottom: 0;
 }
 .board-row .grid:nth-last-child(1) {
+    /*右侧的格子*/
     border-right: 0;
 }
 .board-row .grid:nth-child(1) {
+    /*左侧的格子*/
     border-left: 0;
 }
+
+.board-row:nth-child(1) .grid:nth-child(1),
+.board-row:nth-child(1) .grid:nth-child(1) * {
+    /*左上角的格子*/
+    border-radius: var(--inner-border-radius) 0 0 0;
+}
+.board-row:nth-child(1) .grid:nth-last-child(1),
+.board-row:nth-child(1) .grid:nth-last-child(1) * {
+    /*右上角的格子*/
+    border-radius: 0 var(--inner-border-radius) 0 0;
+}
+.board-row:nth-last-child(1) .grid:nth-last-child(1),
+.board-row:nth-last-child(1) .grid:nth-last-child(1) * {
+    /*右下角的格子*/
+    border-radius: 0 0 var(--inner-border-radius) 0;
+}
+.board-row:nth-last-child(1) .grid:nth-child(1),
+.board-row:nth-last-child(1) .grid:nth-child(1) * {
+    /*左下角的格子*/
+    border-radius: 0 0 0 var(--inner-border-radius);
+}
+
 .board-row:nth-child(2n) .grid:nth-child(2n+1),
 .board-row:nth-child(2n+1) .grid:nth-child(2n) {
     --bg-color: #6665;
@@ -267,7 +298,7 @@ button {
     background-color: #0006;
 }
 .grid:hover::after {
-    --dp: 3px;
+    --dp: 5px;
 
     position: absolute;
     top: calc(var(--dp) * -1);
@@ -281,12 +312,12 @@ button {
     border: var(--color-light1) 3px solid;
     border-radius: 5px;
 
-    /*animation: gridHover 0.2s;*/
+    animation: gridHover 0.1s ease-out;
 }
 
 @keyframes gridHover {
     from { --dp: 1px; }
-    to { --dp: 3px; }
+    to { --dp: 4px; }
 }
 
 .grid:active {
