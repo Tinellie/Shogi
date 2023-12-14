@@ -49,7 +49,7 @@ export function BoardPanel({boardData, handleClick, rowNoType, columnNoType}:
 
 }
 
-function GridRow({row, handleClick}:
+export function GridRow({row, handleClick}:
                      {row: RowData, handleClick: (x: number) => void}){
 
     return (
@@ -67,7 +67,7 @@ function GridRow({row, handleClick}:
     )
 }
 
-function Grid({grid, handleClick}: {grid: GridData, handleClick: ()=>void}){
+export function Grid({grid, handleClick}: {grid: GridData, handleClick: ()=>void}){
 
     return (
         <button

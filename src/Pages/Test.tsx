@@ -5,6 +5,7 @@ import React, {useRef, useState} from "react";
 import {Shogi} from "../Game/Shogi";
 
 import './Test.css';
+import {GetData} from "../Game/GetData";
 
 const defaultX = 7;
 const defaultY = 6;
@@ -70,6 +71,7 @@ export function Test({game} : {game: Game}) {
     content = Func(game, selectedPiece?.pos);
 
     console.warn("Test() End");
+    console.warn(GetData.GetCapturedPiecesData(game.players.list[0]));
 
 
     return (

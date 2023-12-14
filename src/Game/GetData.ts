@@ -1,7 +1,8 @@
 import {Board, Grid} from "./Board";
-import {Piece} from "./Piece";
+import {Piece, PieceStatic} from "./Piece";
 import {Game} from "./Game";
 import {Pos} from "./Pos";
+import {Player} from "./Player";
 
 export class BoardData {
     size: Pos;
@@ -31,11 +32,39 @@ export class GridData {
 }
 export class PieceData {
     direction: number;
-    symbol: string;
+    get symbol() {
+        return this.pieceStatic.name;
+    }
 
-    constructor(direction: number, symbol: string) {
+    pieceStatic: PieceStatic;
+
+    constructor(direction: number, pieceStatic: PieceStatic) {
         this.direction = direction;
-        this.symbol = symbol;
+        this.pieceStatic = pieceStatic;
+    }
+}
+
+class PieceDataPair {
+    pieceData: PieceData;
+    no: number;
+
+    constructor(piece: Piece, no: number = 1) {
+        this.pieceData = GetData.GetPieceData(piece);
+        this.no = no;
+    }
+
+    matches(piece: Piece): boolean {
+        let data = GetData.GetPieceData(piece);
+        return data.symbol === this.pieceData.symbol && data.direction === this.pieceData.direction;
+    }
+
+}
+
+export class CapturedPieceData {
+    pieces: PieceDataPair[];
+
+    constructor(pieces: PieceDataPair[]) {
+        this.pieces = pieces;
     }
 }
 
@@ -51,10 +80,27 @@ export class GetData {
     }
     static GetGridData(game: Game, grid: Grid, x: number, y: number): GridData {
         return new GridData(game.players.current.selectedPiece?.isWalkableAbs(x, y) ?? false,
-            grid.piece === null ? null : this.GetPieceData(game, grid.piece),
+            grid.piece === null ? null : this.GetPieceData(grid.piece),
             game.players.current.direction);
     }
-    static GetPieceData(game: Game, piece: Piece): PieceData {
-        return new PieceData(piece.player.direction, piece.name);
+    static GetPieceData(piece: Piece): PieceData {
+        return new PieceData(piece.player.direction, piece.static);
+    }
+
+    static GetCapturedPiecesData(player: Player): CapturedPieceData {
+        let pairs: PieceDataPair[] = [];
+        player.capturedPieces.forEach((capturedPiece) => {
+            let matchedPair = pairs.find((pair) => pair.matches(capturedPiece));
+            if (matchedPair === undefined) {
+                //如果列表里没有同类棋子, 那么创建一个新的 Pair
+                pairs.push(new PieceDataPair(capturedPiece));
+            }
+            else {
+                matchedPair.no ++;
+            }
+        });
+        pairs.sort((a, b) =>
+            a.pieceData.pieceStatic.weight - b.pieceData.pieceStatic.weight);
+        return new CapturedPieceData(pairs);
     }
 }

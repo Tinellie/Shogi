@@ -106,6 +106,7 @@ export class PieceStatic {
 
     name: string;
     symbol: string | null;
+    weight: number;
 
     get className() : string {
         return this.constructor.name;
@@ -114,9 +115,10 @@ export class PieceStatic {
     walkableGrids: Pos[] | null = [];
     longRange: boolean = false;
 
-    constructor(name: string, symbol: string | null = null) {
+    constructor(name: string, weight: number, symbol: string | null = null) {
         this.name = name;
         this.symbol = symbol;
+        this.weight = weight;
     }
 
     toString(): string {
@@ -168,8 +170,8 @@ class PieceStaticLance extends PieceStatic {
         return this.lanceWalkableToward(xn, yn, xMag? xMag : yMag, piece, isAlliance);
     }
 
-    constructor(name: string, symbol: string | null = null) {
-        super(name, symbol);
+    constructor(name: string, weight: number, symbol: string | null = null) {
+        super(name, weight, symbol);
         this.isWalkable = this.lanceWalkable;
 
         this.longRange = true;
@@ -177,8 +179,8 @@ class PieceStaticLance extends PieceStatic {
 }
 
 class PieceStaticLancePromoted extends PieceStaticLance {
-    constructor(name: string, symbol: string | null = null) {
-        super(name, symbol);
+    constructor(name: string, weight: number, symbol: string | null = null) {
+        super(name, weight, symbol);
         this.isWalkable =
             (x: number, y: number, piece: GetPieceFunc, isAlliance: IsAllianceFunc) : boolean =>
                 this.lanceWalkable(x, y, piece, isAlliance) && King.isWalkable(x, y, piece, isAlliance);
@@ -190,14 +192,14 @@ class PieceStaticLancePromoted extends PieceStaticLance {
 
 export class Pawn extends PieceStatic {
     constructor() {
-        super("步兵", "p");
+        super("步兵", 0, "p");
         this.walkableGrids = [ Pos.p(1, 0)];
         this.promote = () => new PawnPromoted();
     }
 }
 export class PawnPromoted extends PieceStatic {
     constructor() {
-        super("と", "P");
+        super("と", 0.1, "P");
         this.walkableGrids = Gold.walkableGrids;
         this.reset = () => new Pawn();
     }
@@ -206,14 +208,14 @@ export class PawnPromoted extends PieceStatic {
 
 export class Lance extends PieceStaticLance {
     constructor() {
-        super("香車", "l");
+        super("香車", 1, "l");
         this.promote = () => new LancePromoted();
         this.walkableGrids = [Pos.p(1, 0)];
     }
 }
 export class LancePromoted extends PieceStatic {
     constructor() {
-        super("仝", "L");
+        super("仝", 1.1, "L");
         this.walkableGrids = Gold.walkableGrids;
         this.reset = () => new Lance();
     }
@@ -222,7 +224,7 @@ export class LancePromoted extends PieceStatic {
 
 export class Knight extends PieceStatic {
     constructor() {
-        super("桂馬", "k");
+        super("桂馬", 2, "k");
         this.walkableGrids = Pos.array(
             [
                 [2, -1],
@@ -233,7 +235,7 @@ export class Knight extends PieceStatic {
 }
 export class KnightPromoted extends PieceStatic {
     constructor() {
-        super("圭", "K");
+        super("圭", 2.1, "K");
         this.walkableGrids = Gold.walkableGrids;
         this.reset = () => new Knight();
     }
@@ -242,7 +244,7 @@ export class KnightPromoted extends PieceStatic {
 
 export class Silver extends PieceStatic {
     constructor() {
-        super("銀將", "s");
+        super("銀將", 3, "s");
         this.walkableGrids = Pos.array(
             [
                 [1, -1],
@@ -256,7 +258,7 @@ export class Silver extends PieceStatic {
 }
 export class SilverPromoted extends PieceStatic {
     constructor() {
-        super("と", "S");
+        super("と", 3.1, "S");
         this.walkableGrids = Gold.walkableGrids;
         this.reset = () => new Silver();
     }
@@ -276,7 +278,7 @@ export class Gold extends PieceStatic {
         ]);
 
     constructor() {
-        super("金將", "g");
+        super("金將", 4, "g");
         this.walkableGrids = Gold.walkableGrids;
     }
 
@@ -292,14 +294,14 @@ export class Bishop extends PieceStaticLance {
         ]);
 
     constructor() {
-        super("角行", "b");
+        super("角行", 10, "b");
         this.walkableGrids = Bishop.walkableGrids;
         this.promote = () => new BishopPromoted();
     }
 }
 export class BishopPromoted extends PieceStaticLancePromoted {
     constructor() {
-        super("龍馬", "B");
+        super("龍馬", 10.1, "B");
         this.walkableGrids = Bishop.walkableGrids;
         this.reset = () => new Bishop();
     }
@@ -315,14 +317,14 @@ export class Rook extends PieceStaticLance {
             [-1, 0],
         ]);
     constructor() {
-        super("飛車", "r");
+        super("飛車", 11, "r");
         this.walkableGrids = Rook.walkableGrids;
         this.promote = () => new RookPromoted();
     }
 }
 export class RookPromoted extends PieceStaticLancePromoted {
     constructor() {
-        super("龍王", "R");
+        super("龍王", 11.1, "R");
         this.walkableGrids = Rook.walkableGrids;
         this.reset = () => new Rook();
     }
@@ -337,7 +339,7 @@ export class King extends PieceStatic {
     }
 
     constructor() {
-        super("王将", "x");
+        super("王将", 100, "x");
         this.isWalkable = King.isWalkable;
     }
 }

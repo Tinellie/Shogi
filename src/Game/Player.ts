@@ -57,6 +57,16 @@ export class Player {
     }
 
     addCapturePiece(piece: Piece): void{
+        /*for (let i = 0; i < this.capturedPieces.length; i++) {
+            if (this.capturedPieces[i].static.weight < piece.static.weight)  {
+                let len = this.capturedPieces.length;
+                for (let j = len; j > i; j--) {
+                    this.capturedPieces[j] = this.capturedPieces[j-1];
+                }
+                this.capturedPieces[i] = piece;
+                return;
+            }
+        }*/
         this.capturedPieces.push(piece);
     }
 
