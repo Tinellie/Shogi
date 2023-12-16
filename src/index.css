@@ -7,9 +7,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   padding: 50px;
 }
-input {
-  width: 50px;
-}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
