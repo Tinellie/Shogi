@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/Shogi/static/css/main.3f986408.css",
+    "main.js": "/Shogi/static/js/main.b773a3be.js",
+    "static/js/787.a91ad580.chunk.js": "/Shogi/static/js/787.a91ad580.chunk.js",
+    "static/media/SourceHanSerifTC-Bold.otf": "/Shogi/static/media/SourceHanSerifTC-Bold.eb0b8346b3dbc4cd965b.otf",
+    "static/media/SourceHanSerifTC-Medium.otf": "/Shogi/static/media/SourceHanSerifTC-Medium.c13e97e763ea0d3d2d94.otf",
+    "static/media/SourceHanSerifTC-SemiBold.otf": "/Shogi/static/media/SourceHanSerifTC-SemiBold.c16e64ffe05115c0ebb7.otf",
+    "static/media/SourceHanSerifTC-Regular.otf": "/Shogi/static/media/SourceHanSerifTC-Regular.c4c9a14cf8f5d409cca0.otf",
+    "static/media/SourceHanSerifTC-Light.otf": "/Shogi/static/media/SourceHanSerifTC-Light.cd19266e7ddd36b9fa26.otf",
+    "static/media/SourceHanSerifTC-Heavy.otf": "/Shogi/static/media/SourceHanSerifTC-Heavy.2c249a90e7bd78e15a29.otf",
+    "static/media/SourceHanSerifTC-ExtraLight.otf": "/Shogi/static/media/SourceHanSerifTC-ExtraLight.82dded4e7d27d6f37938.otf",
+    "static/media/WangHanZong-Regular-Bold.ttf": "/Shogi/static/media/WangHanZong-Regular-Bold.d68a39e394fde2df88f5.ttf",
+    "static/media/WangHanZong-SemiCursive-Medium.ttf": "/Shogi/static/media/WangHanZong-SemiCursive-Medium.e73d546d3b552c38a3b1.ttf",
+    "static/media/ZhongQiLiuJiang-Cursive.ttf": "/Shogi/static/media/ZhongQiLiuJiang-Cursive.1a72e18c56c181f1250e.ttf",
+    "index.html": "/Shogi/index.html",
+    "main.3f986408.css.map": "/Shogi/static/css/main.3f986408.css.map",
+    "main.b773a3be.js.map": "/Shogi/static/js/main.b773a3be.js.map",
+    "787.a91ad580.chunk.js.map": "/Shogi/static/js/787.a91ad580.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3f986408.css",
+    "static/js/main.b773a3be.js"
+  ]
+}
