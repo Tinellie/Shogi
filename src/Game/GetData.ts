@@ -1,4 +1,4 @@
-import {Board} from "./Board";
+import {Board, Grid} from "./Board";
 import {Piece} from "./Piece/Piece";
 import {PieceStatic} from "./Piece/PieceStatic";
 import {Game} from "./Game";
@@ -72,7 +72,7 @@ export class CapturedPieceData {
 export class GetData {
     static GetBoardData(game: Game, board: Board): BoardData {
         return new BoardData(
-            board.grids.map((row, y) => this.GetRowData(game, row, y)),
+            board.rows.map((row, y) => this.GetRowData(game, row, y)),
             board.size
         );
     }
@@ -81,7 +81,7 @@ export class GetData {
     }
     static GetGridData(game: Game, grid: Grid, x: number, y: number): GridData {
         return new GridData(game.players.current.selectedPiece?.isWalkableAbs(x, y) ?? false,
-            grid.piece === null ? null : this.GetPieceData(grid.piece),
+            grid === null ? null : this.GetPieceData(grid),
             game.players.current.direction);
     }
     static GetPieceData(piece: Piece): PieceData {

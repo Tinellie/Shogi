@@ -3,6 +3,8 @@ import {Player} from "./Player/Player";
 import {Game} from "./Game"
 import {Pos} from "./Pos";
 
+export type Grid = Piece | null;
+
 export class Board {
 
     readonly game: Game;
@@ -24,8 +26,39 @@ export class Board {
     }
     setGrid(pos: Pos, piece: Grid) {
         this.grids[pos.y * this.width + pos.x] = piece;
-        if (piece !== null)
+        if (piece !== null){
             piece.pos = pos.clone;
+            piece.board = this;
+        }
+    }
+
+    row(y: number): Grid[] {
+        let row: Grid[] = Array(this.width)
+        for (let x = 0; x < this.width; x++) {
+            row[x] = this.grid(x, y);
+        }
+        return row;
+    }
+    get rows(): Grid[][] {
+        let rows: Grid[][] = Array(this.height)
+        for (let y = 0; y < this.height; y++) {
+            rows[y] = this.row(y);
+        }
+        return rows;
+    }
+    column(x: number): Grid[] {
+        let column: Grid[] = Array(this.height)
+        for (let y = 0; y < this.height; y++) {
+            column[y] = this.grid(x, y);
+        }
+        return column;
+    }
+    get columns(): Grid[][] {
+        let columns: Grid[][] = Array(this.width)
+        for (let x = 0; x < this.width; x++) {
+            columns[x] = this.column(x);
+        }
+        return columns;
     }
 
 
@@ -203,7 +236,7 @@ export class Board {
         if (piece2 !== null){
             if (piece.player.isHostileTo(piece2.player)) {
                 console.log(`- capture ${piece2.id}`);
-                piece.player.addCapturePiece(piece2);
+                piece.player.capturePiece(piece2);
                 this.removeAt(pos);
             }
         }
@@ -231,7 +264,6 @@ export class Board {
         if (this.occupied(pos))
             throw new Error(`Piece ${this} tried to move to Grid ${pos} which has been occupied by ${this.gridP(pos)}`);
         this.setGrid(pos, piece);
-        piece.board = this;
     }
     //移除棋子, 如果棋子不存在, 将会报错
     public remove(piece: Piece) {
@@ -268,7 +300,7 @@ export class Board {
 
 }
 
-type Grid = Piece | null;
+
 /*export class Grid{
     public piece : Piece | null = null;
     public readonly pos: Pos
