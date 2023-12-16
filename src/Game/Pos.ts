@@ -11,6 +11,9 @@ export class Pos {
         return `(${this.x}, ${this.y})`
     }
 
+    get area(): number { return this.x * this.y; }
+
+
     static p(y: number, x: number) : Pos { return new Pos(x, y); }
 
     static array(posArray: number[][]) : Pos[] {
@@ -20,5 +23,5 @@ export class Pos {
         )
     }
 
-    static sq(size: number) : Pos { return new Pos(size, size); }
+    //static sq(size: number) : Pos { return new Pos(size, size); }
 }

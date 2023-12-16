@@ -1,7 +1,6 @@
 import {map} from "./BoardPanel";
 import {CapturedPieceData, GridData} from "../../Game/GetData";
 import {Grid} from "./BoardPanel";
-import {JSX} from "react";
 
 
 export function CapturedPiecePanel({capturedPieceData} : {capturedPieceData: CapturedPieceData}){

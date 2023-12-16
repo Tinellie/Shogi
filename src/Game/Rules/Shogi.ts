@@ -1,6 +1,6 @@
-import {Board} from "./Board";
+import {Board} from "../Board";
 import {Rules} from "./Rules";
-import {Game} from "./Game"
+import {Game} from "../Game"
 import {
     Bishop, BishopPromoted,
     Gold, King,
@@ -9,7 +9,7 @@ import {
     Pawn, PawnPromoted,
     Rook, RookPromoted,
     Silver, SilverPromoted
-} from "./Piece";
+} from "../Piece/Piece";
 import * as cn from "chinese-numbering";
 
 

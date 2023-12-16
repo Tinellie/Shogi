@@ -1,7 +1,4 @@
-import {Piece} from "./Piece";
-import {Pos} from "./Pos";
-import {Simulate} from "react-dom/test-utils";
-import select = Simulate.select;
+import {Piece} from "../Piece/Piece";
 
 
 export class Player {
@@ -12,7 +9,8 @@ export class Player {
     pieces: Piece[] = [];
     capturedPieces : Piece[] = [];
 
-    selectedPiece : Piece | null = null;
+    private _selectedPiece : Piece | null = null;
+    public get selectedPiece(): Piece | null { return this._selectedPiece; }
 
     constructor(id: number, direction : number) {
         this.id = id;
@@ -27,7 +25,7 @@ export class Player {
     _getData(): string[] {
         let s: string[] = [];
         s[0] = `Direction: ${this.direction},`;
-        s[1] = `Selected: ${this.selectedPiece}`;
+        s[1] = `Selected: ${this._selectedPiece}`;
 
         s[2] = `pieces: [`;
         this.pieces.forEach((p) => s[2] += p.id + ", ");
@@ -40,11 +38,12 @@ export class Player {
     }
 
     //检测是否敌对玩家
-    isEnemy(player: Player) {
+    isHostileTo(player: Player) {
         return player.direction !== this.direction;
     }
 
     addPiece(piece: Piece): void {
+        piece.transferOwnership(this);
         this.pieces.push(piece);
     }
     removePiece(piece: Piece): void {
@@ -57,7 +56,8 @@ export class Player {
     }
 
     addCapturePiece(piece: Piece): void{
-        /*for (let i = 0; i < this.capturedPieces.length; i++) {
+        piece.transferOwnership(this);
+        for (let i = 0; i < this.capturedPieces.length; i++) {
             if (this.capturedPieces[i].static.weight < piece.static.weight)  {
                 let len = this.capturedPieces.length;
                 for (let j = len; j > i; j--) {
@@ -66,15 +66,15 @@ export class Player {
                 this.capturedPieces[i] = piece;
                 return;
             }
-        }*/
+        }
         this.capturedPieces.push(piece);
     }
 
     select(piece: Piece) : void {
         console.log(`- select ${piece.id}`)
-        this.selectedPiece = piece;
+        this._selectedPiece = piece;
     }
     selectClear() : void {
-        this.selectedPiece = null;
+        this._selectedPiece = null;
     }
 }

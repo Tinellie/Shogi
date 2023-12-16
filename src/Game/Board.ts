@@ -1,34 +1,33 @@
-import {Piece} from "./Piece";
-import {Player} from "./Player";
+import {Piece} from "./Piece/Piece";
+import {Player} from "./Player/Player";
 import {Game} from "./Game"
 import {Pos} from "./Pos";
-import {PieceManager} from "./PieceManager";
-import {Simulate} from "react-dom/test-utils";
-import error = Simulate.error;
 
 export class Board {
 
     readonly game: Game;
 
-    size: Pos;
+    public size: Pos;
+    public get width() { return this.size.x; }
+    public get height() { return this.size.y; }
 
-    grids : Grid[][];
-    g(x : number, y : number) : Grid {
-        return this.grids[y][x];
+    private readonly grids : Grid[];
+    //grids : Grid[][];
+    grid(x : number, y : number) : Grid {
+        return this.grids[y * this.width + x];
     }
-    p(pos : Pos) : Grid {
-        return this.g(pos.x, pos.y);
+    gridP(pos : Pos) : Grid {
+        return this.grid(pos.x, pos.y);
     }
 
     constructor(game: Game, size: Pos) {
         this.game = game;
-        this.size = size;
-        this.grids = [];
 
-        for (let y = 0; y < size.y; y++) {
-            this.grids[y] = [];
-            for (let x = 0; x < size.x; x++) {
-                this.grids[y][x] = new Grid();
+        this.size = size;
+        this.grids = Array(size.area);
+        for (let y = 0; y < this.height; y++) {
+            for (let x = 0; x < this.width; x++) {
+                this.grids[y * this.width + x] = new Grid(x, y);
             }
         }
     }
@@ -81,9 +80,9 @@ export class Board {
 
     toString(): string {
         let result: string = "";
-        for (let y = this.grids.length - 1; y >= 0; y--) {
-            for (let x = 0; x < this.grids[y].length; x++) {
-                result += this.g(x, y);
+        for (let y = this.height - 1; y >= 0; y--) {
+            for (let x = 0; x < this.width; x++) {
+                result += this.grid(x, y);
             }
             result += "\n";
         }
@@ -93,7 +92,7 @@ export class Board {
 
     handleClick(x : number, y : number, player : Player) : void {
         console.log(`Handle Click: (${x},${y}), player: ${player.direction/*_getData()*/}`)
-        let currentPiece = this.g(x, y).piece;
+        let currentPiece = this.grid(x, y).piece;
 
         if (player.selectedPiece === null ||
             (currentPiece?.player === player && currentPiece !== player.selectedPiece)) {
@@ -117,7 +116,7 @@ export class Board {
                 console.log("-------- turn ends --------")
             }
             //清除已选棋子;
-            player.selectedPiece = null;
+            player.selectClear();
         }
 
     }
@@ -126,7 +125,7 @@ export class Board {
 
         let x = 0;
         let y = 0;
-        let piece = g.board.g(x, y).piece as Piece;
+        let piece = g.board.grid(x, y).piece as Piece;
         let grids = g.board.getValidWalkableGrids(piece);
         let output : string = "";
         for (let iy= 0; iy < 9; iy++) {
@@ -139,6 +138,7 @@ export class Board {
         console.warn(`piece ${piece.name}, walkable Grids: ${"\n" +output}`);
     }
 
+    //检测棋子是否可以走到格子, 且该移动合法
     isValidWalkableGrid(piece: Piece | null, pos: Pos): boolean {
         return piece !== null &&
             piece.isWalkable(piece.rX(pos.x), piece.rY(pos.y)) &&
@@ -168,7 +168,7 @@ export class Board {
         return walkableGrids2;
     }
 
-    //检查棋子是否可以移动 (是否会将军等问题)
+    //检查棋子 piece 移动到 pos 是否合法 (是否会将军等问题)
     isValidMove(piece: Piece, pos: Pos): boolean {
         // if(/*正在将军*/) {
         //     //检查移动后是否解决将军
@@ -192,11 +192,12 @@ export class Board {
         }
 
         //如果目标格子有敌对棋子, 捕获它
-        let piece2 = this.p(pos).piece;
+        let piece2 = this.gridP(pos).piece;
         if (piece2 !== null){
-            if (piece.player.isEnemy(piece2.player)) {
+            if (piece.player.isHostileTo(piece2.player)) {
                 console.log(`- capture ${piece2.id}`);
-                this.capturePiece(piece.player, piece2);
+                piece.player.addCapturePiece(piece2);
+                this.removeAt(pos);
             }
         }
 
@@ -207,19 +208,7 @@ export class Board {
         return true;
     }
 
-    //把棋子从棋盘上移除
-    private remove(piece: Piece){
-        this.p(piece.pos).piece = null;
-        piece.onBoard = false;
-    }
-    //把棋子放置到棋盘上指定位置, 如果目标格子被占据会报错
-    private place(piece: Piece, pos: Pos) {
-        if (this.occupied(pos))
-            throw new Error(`Piece ${piece} tried to move to Grid ${pos} which has been occupied by ${this.p(pos).piece}`);
-        piece.pos = pos;
-        this.p(pos).piece = piece;
-        piece.onBoard = true;
-    }
+
 
     //移动棋子到棋盘上指定位置, 如果目标格子被占据会报错
     private move(piece: Piece, pos: Pos){
@@ -228,28 +217,56 @@ export class Board {
         this.place(piece, pos);
     }
 
-    //返回格子是否被占据
-    occupied(pos: Pos): boolean {
-        return this.p(pos).piece !== null;
+
+
+    //放置棋子, 如果格子被占据, 会报错
+    public place(piece: Piece, pos: Pos) {
+        if (this.gridP(pos).occupied)
+            throw new Error(`Piece ${this} tried to move to Grid ${pos} which has been occupied by ${this.gridP(pos).piece}`);
+        this.gridP(pos).piece = piece;
+        piece.board = this;
+    }
+    //移除棋子, 如果棋子不存在, 将会报错
+    public remove(piece: Piece) {
+        try {
+            this.removeAt(this.getPos(piece));
+        }catch (e) {
+            throw new Error(`${e}, but trying to Remove piece from this Board`);
+        }
+    }
+    //移除位于指定位置的格子
+    public removeAt(pos: Pos) {
+        this.gridP(pos).piece = null;
     }
 
-    //把棋子从棋盘上移除, 并转交所有权
-    capturePiece(player: Player, piece: Piece): void {
-        //移除棋盘上的棋子
-        this.remove(piece);
-        //把棋子从原来的玩家处移除
-        piece.player.removePiece(piece);
-        //把棋子添加到玩家的持驹台
-        player.addCapturePiece(piece);
+
+
+    //尝试获取棋子的坐标, 如果棋子不存在, 将会报错
+    public getPos(piece: Piece): Pos {
+        let a = this.tryGetPos(piece);
+        if (a !== undefined) {
+            return a;
+        }
+        throw new Error(`Piece ${piece} is not on this Board`);
+    }
+    //尝试获取棋子的坐标, 如果棋子不存在, 返回 undefined
+    public tryGetPos(piece: Piece): Pos | undefined {
+        return this.grids.find((grid) => grid.piece === piece)?.pos
+    }
+    //判断棋子是否在棋盘上
+    public isOnBoard(piece: Piece): boolean {
+        return this.tryGetPos(piece) !== undefined;
     }
 
 
 }
 
 export class Grid{
-    piece : Piece | null = null;
+    public piece : Piece | null = null;
+    public readonly pos: Pos
 
-    constructor(piece : Piece | null = null) {
+    constructor(x: number, y: number, piece : Piece | null = null) {
+        this.pos = new Pos(x, y);
         this.piece = piece;
     }
     toString(): string {
@@ -257,4 +274,6 @@ export class Grid{
     }
 
     belongTo = (player : Player) => this.piece !== null && this.piece.belongTo(player);
+    
+    public get occupied(): boolean { return this.piece !== null; }
 }

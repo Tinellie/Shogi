@@ -1,6 +1,4 @@
-import {JSX, useState} from "react";
-import {Game} from "../../Game/Game";
-//import {boardPanel, Grid} from "../../Game/boardPanel";
+import {JSX} from "react";
 import {GridNumbers} from "./GridNumbers";
 
 import {PieceData, GridData, RowData, BoardData} from "../../Game/GetData";

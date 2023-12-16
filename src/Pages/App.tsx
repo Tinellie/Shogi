@@ -5,7 +5,7 @@ import {Test} from "./Test";
 import {GamePanel} from "./Game/GamePanel";
 import {useState} from "react";
 import {Game} from "../Game/Game";
-import {Shogi} from "../Game/Shogi";
+import {Shogi} from "../Game/Rules/Shogi";
 import {SettingsPanel} from "./Game/SettingsPanel";
 
 

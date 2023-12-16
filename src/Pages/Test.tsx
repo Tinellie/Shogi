@@ -1,8 +1,8 @@
 import {Game} from "../Game/Game";
 import {Pos} from "../Game/Pos";
-import {Piece} from "../Game/Piece";
+import {Piece} from "../Game/Piece/Piece";
 import React, {useRef, useState} from "react";
-import {Shogi} from "../Game/Shogi";
+import {Shogi} from "../Game/Rules/Shogi";
 
 import './Test.css';
 import {GetData} from "../Game/GetData";
@@ -13,7 +13,7 @@ function Func(g: Game, pos: Pos | null | undefined){
     let grids: Pos[] = [];
     let piece: Piece | null = null;
     if(pos !== null && pos !== undefined){
-        piece = g.board.p(pos).piece as Piece;
+        piece = g.board.gridP(pos).piece as Piece;
         grids = g.board.getValidWalkableGrids(piece);
     }
     let results: string[] = [piece?.name ?? "/", "____ [0] [1] [2] [3] [4] [5] [6] [7] [8]"];
@@ -67,8 +67,8 @@ export function Test({game} : {game: Game}) {
 
     //const [Content, setContent] = useState(r);
     let content: string[] = [];
-    let selectedPiece = game.players.list[currentPlayer].selectedPiece;
-    content = Func(game, selectedPiece?.pos);
+    let selectedPiece = game.players.list[currentPlayer]._selectedPiece;
+    content = Func(game, selectedPiece?._pos);
 
     console.warn("Test() End");
     console.warn(GetData.GetCapturedPiecesData(game.players.list[0]));
@@ -77,7 +77,7 @@ export function Test({game} : {game: Game}) {
     return (
         <div className="Test">
             <div>
-                {`${game.board.getValidWalkableGrids(game.board.g(X, Y).piece)}`}
+                {`${game.board.getValidWalkableGrids(game.board.grid(X, Y).piece)}`}
             </div>
             <div>
                 {`X: ${X}, Y: ${Y}`}

@@ -2,7 +2,7 @@ import {BoardPanel} from "./BoardPanel";
 import {Game} from "../../Game/Game";
 import {GetData} from "../../Game/GetData";
 import {useState} from "react";
-import {Shogi} from "../../Game/Shogi";
+import {Shogi} from "../../Game/Rules/Shogi";
 
 import './GamePanel.css';
 

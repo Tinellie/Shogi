@@ -1,9 +1,9 @@
 import {Piece, PieceStatic} from "./Piece";
-import {Board} from "./Board";
-import {Player} from "./Player";
+import {Board} from "../Board";
+import {Player} from "../Player/Player";
 import {Simulate} from "react-dom/test-utils";
 import error = Simulate.error;
-import {Game} from "./Game";
+import {Game} from "../Game";
 
 export class PieceManager {
 

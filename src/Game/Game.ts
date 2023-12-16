@@ -1,13 +1,8 @@
 import {Board} from "./Board";
-import {Rules} from "./Rules";
-import {PieceManager} from "./PieceManager";
-import {PlayerManager} from "./PlayerManager";
-import {Shogi} from "./Shogi";
-import {Player} from "./Player";
+import {Rules} from "./Rules/Rules";
+import {PieceManager} from "./Piece/PieceManager";
+import {PlayerManager} from "./Player/PlayerManager";
 import {Settings} from "./Settings";
-
-
-export const PieceTypes = [1,2,3];
 
 
 export class Game {
@@ -35,11 +30,6 @@ export class Game {
         this.board = this.rules.initBoard(this);
 
         Game.ins = this;
-    }
-
-    //当前玩家完成操作, 切换玩家
-    switchPlayer() {
-
     }
 
 }
