@@ -2,14 +2,21 @@ import {Board} from "../Board";
 import {Rules} from "./Rules";
 import {Game} from "../Game"
 import {
-    Bishop, BishopPromoted,
-    Gold, King,
-    Knight, KnightPromoted,
-    Lance, LancePromoted,
-    Pawn, PawnPromoted,
-    Rook, RookPromoted,
-    Silver, SilverPromoted
-} from "../Piece/Piece";
+    Bishop,
+    BishopPromoted,
+    Gold,
+    King,
+    Knight,
+    KnightPromoted,
+    Lance,
+    LancePromoted,
+    Pawn,
+    PawnPromoted,
+    Rook,
+    RookPromoted,
+    Silver,
+    SilverPromoted
+} from "../Piece/PieceShogi";
 import * as cn from "chinese-numbering";
 
 
@@ -39,7 +46,7 @@ export class Shogi extends Rules{
 
 
     override initBoard = (game: Game) => {
-        let board: Board = Board.newBoard(game, [
+        return Board.newBoard(game, [
             "         ",
             "         ",
             "         ",
@@ -51,7 +58,6 @@ export class Shogi extends Rules{
             "lksgxgskl",
 
         ], game.players.list);
-        return board;
     }
 
 

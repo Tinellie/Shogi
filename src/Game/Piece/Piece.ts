@@ -42,14 +42,14 @@ export class Piece {
         if (!this.onBoard) {
             throw new Error(`Piece ${this} is not on Board, but try to get pos`);
         }
-        if (this.board.gridP(this._pos).piece !== this){
+        if (this.board.gridP(this._pos) !== this){
             throw new Error(`Piece ${this} is located at ${this.board.getPos(this)}, but Piece._pos == ${this._pos}`);
         }
 
         return this._pos;
     }
     public set pos(pos: Pos) {
-        if (this.board.gridP(pos).piece !== this){
+        if (this.board.gridP(pos) !== this){
             throw new Error(`Piece ${this} is located at ${this.board.getPos(this)}, but try to set pos to ${pos}`);
         }
         this._pos = pos;
@@ -83,7 +83,7 @@ export class Piece {
     belongTo = (player: Player) => player === this._player;
     //以 **相对坐标** 获取指定格子上的棋子
     getPiece: GetPieceFunc = (relX: number, relY: number) => {
-        return this.board.grid(this.absX(relX), this.absY(relY)).piece;
+        return this.board.grid(this.absX(relX), this.absY(relY));
     }
 
 

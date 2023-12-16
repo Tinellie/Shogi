@@ -1,5 +1,5 @@
 import {Board} from "../Board";
-import {Piece, PieceStatic} from "../Piece/Piece";
+import {PieceStatic} from "../Piece/PieceStatic";
 import {Game} from "../Game";
 
 

@@ -13,7 +13,7 @@ function Func(g: Game, pos: Pos | null | undefined){
     let grids: Pos[] = [];
     let piece: Piece | null = null;
     if(pos !== null && pos !== undefined){
-        piece = g.board.gridP(pos).piece as Piece;
+        piece = g.board.gridP(pos) as Piece;
         grids = g.board.getValidWalkableGrids(piece);
     }
     let results: string[] = [piece?.name ?? "/", "____ [0] [1] [2] [3] [4] [5] [6] [7] [8]"];
@@ -21,11 +21,11 @@ function Func(g: Game, pos: Pos | null | undefined){
     for (let iy = 9 - 1; iy >= 0; iy--) {
         let result = `(${iy})  |`
         for (let ix = 0; ix < 9; ix++) {
-            let sym = ()=>g.board.grids[iy][ix].piece?.symbol;
+            let sym = ()=>g.board.grid(ix, iy)?.symbol;
             result += (ix === pos?.x && iy === pos?.y) ? `[${sym()??" "}]`:
                 (grids.find((pos) => pos.x === ix && pos.y === iy))?
-                    (g.board.grids[iy][ix].piece !== null) ? `(${sym()})` : " ● ":
-                    (g.board.grids[iy][ix].piece !== null) ? ` ${sym()} ` : " _ ";
+                    (g.board.grid(ix, iy) !== null) ? `(${sym()})` : " ● ":
+                    (g.board.grid(ix, iy) !== null) ? ` ${sym()} ` : " _ ";
             result += "|"
         }
         results[results.length] = result;
@@ -67,8 +67,8 @@ export function Test({game} : {game: Game}) {
 
     //const [Content, setContent] = useState(r);
     let content: string[] = [];
-    let selectedPiece = game.players.list[currentPlayer]._selectedPiece;
-    content = Func(game, selectedPiece?._pos);
+    let selectedPiece = game.players.list[currentPlayer].selectedPiece;
+    content = Func(game, selectedPiece?.pos);
 
     console.warn("Test() End");
     console.warn(GetData.GetCapturedPiecesData(game.players.list[0]));
@@ -77,7 +77,7 @@ export function Test({game} : {game: Game}) {
     return (
         <div className="Test">
             <div>
-                {`${game.board.getValidWalkableGrids(game.board.grid(X, Y).piece)}`}
+                {`${game.board.getValidWalkableGrids(game.board.grid(X, Y))}`}
             </div>
             <div>
                 {`X: ${X}, Y: ${Y}`}

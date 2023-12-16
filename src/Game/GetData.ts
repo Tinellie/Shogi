@@ -1,4 +1,4 @@
-import {Board, Grid} from "./Board";
+import {Board} from "./Board";
 import {Piece} from "./Piece/Piece";
 import {PieceStatic} from "./Piece/PieceStatic";
 import {Game} from "./Game";

@@ -11,6 +11,10 @@ export class Pos {
         return `(${this.x}, ${this.y})`
     }
 
+    get clone(): Pos {
+        return new Pos(this.x, this.y);
+    }
+
     get area(): number { return this.x * this.y; }
 
 

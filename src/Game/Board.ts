@@ -19,17 +19,24 @@ export class Board {
     gridP(pos : Pos) : Grid {
         return this.grid(pos.x, pos.y);
     }
+    occupied(pos: Pos): boolean {
+        return this.gridP(pos) !== null;
+    }
+    setGrid(pos: Pos, piece: Grid) {
+        this.grids[pos.y * this.width + pos.x] = piece;
+        if (piece !== null)
+            piece.pos = pos.clone;
+    }
+
+
+
 
     constructor(game: Game, size: Pos) {
         this.game = game;
 
         this.size = size;
-        this.grids = Array(size.area);
-        for (let y = 0; y < this.height; y++) {
-            for (let x = 0; x < this.width; x++) {
-                this.grids[y * this.width + x] = new Grid(x, y);
-            }
-        }
+        this.grids = Array(size.area).fill(null);
+
     }
 
     static newBoard(game: Game, data: string[], players: Player[]): Board {
@@ -92,10 +99,10 @@ export class Board {
 
     handleClick(x : number, y : number, player : Player) : void {
         console.log(`Handle Click: (${x},${y}), player: ${player.direction/*_getData()*/}`)
-        let currentPiece = this.grid(x, y).piece;
+        let currentPiece: Grid = this.grid(x, y);
 
         if (player.selectedPiece === null ||
-            (currentPiece?.player === player && currentPiece !== player.selectedPiece)) {
+            (currentPiece?.belongTo(player) && currentPiece !== player.selectedPiece)) {
             //如果没有选择棋子
             //或点击的格子是属于玩家的棋子, 且不等于当前选择的棋子 那么选择格子
 
@@ -125,7 +132,7 @@ export class Board {
 
         let x = 0;
         let y = 0;
-        let piece = g.board.grid(x, y).piece as Piece;
+        let piece = g.board.grid(x, y) as Piece;
         let grids = g.board.getValidWalkableGrids(piece);
         let output : string = "";
         for (let iy= 0; iy < 9; iy++) {
@@ -192,7 +199,7 @@ export class Board {
         }
 
         //如果目标格子有敌对棋子, 捕获它
-        let piece2 = this.gridP(pos).piece;
+        let piece2 = this.gridP(pos);
         if (piece2 !== null){
             if (piece.player.isHostileTo(piece2.player)) {
                 console.log(`- capture ${piece2.id}`);
@@ -221,9 +228,9 @@ export class Board {
 
     //放置棋子, 如果格子被占据, 会报错
     public place(piece: Piece, pos: Pos) {
-        if (this.gridP(pos).occupied)
-            throw new Error(`Piece ${this} tried to move to Grid ${pos} which has been occupied by ${this.gridP(pos).piece}`);
-        this.gridP(pos).piece = piece;
+        if (this.occupied(pos))
+            throw new Error(`Piece ${this} tried to move to Grid ${pos} which has been occupied by ${this.gridP(pos)}`);
+        this.setGrid(pos, piece);
         piece.board = this;
     }
     //移除棋子, 如果棋子不存在, 将会报错
@@ -236,7 +243,7 @@ export class Board {
     }
     //移除位于指定位置的格子
     public removeAt(pos: Pos) {
-        this.gridP(pos).piece = null;
+        this.setGrid(pos, null);
     }
 
 
@@ -251,7 +258,7 @@ export class Board {
     }
     //尝试获取棋子的坐标, 如果棋子不存在, 返回 undefined
     public tryGetPos(piece: Piece): Pos | undefined {
-        return this.grids.find((grid) => grid.piece === piece)?.pos
+        return this.grids.find((grid) => grid === piece)?.pos
     }
     //判断棋子是否在棋盘上
     public isOnBoard(piece: Piece): boolean {
@@ -261,7 +268,8 @@ export class Board {
 
 }
 
-export class Grid{
+type Grid = Piece | null;
+/*export class Grid{
     public piece : Piece | null = null;
     public readonly pos: Pos
 
@@ -276,4 +284,4 @@ export class Grid{
     belongTo = (player : Player) => this.piece !== null && this.piece.belongTo(player);
     
     public get occupied(): boolean { return this.piece !== null; }
-}
+}*/
