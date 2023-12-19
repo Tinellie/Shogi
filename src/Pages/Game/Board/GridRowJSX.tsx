@@ -1,4 +1,4 @@
-import {RowData} from "../../../Game/GetData";
+import {RowData} from "../../../Game/GetData/GetData";
 import {map} from "./BoardJSX";
 import {GridJSX} from "./GridJSX";
 

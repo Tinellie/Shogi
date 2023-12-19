@@ -1,8 +1,8 @@
-import {PieceData} from "../../../Game/GetData";
+import {PieceData} from "../../../Game/GetData/GetData";
 
 export function PieceJSX({piece}: { piece: PieceData }) {
     return (
-        <div className={"piece" + ((piece.direction === -1) ? " inverse" : " direct")}>
+        <div className={"piece" + ((piece.direction === -1) ? " player2" : " player1")}>
             {(piece) ?
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38.41 43.68">
                     <path stroke="#eee" fill="none" className="cls-1"

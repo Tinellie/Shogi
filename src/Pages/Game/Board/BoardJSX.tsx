@@ -1,7 +1,7 @@
 import {JSX} from "react";
 import {GridNumbersJSX} from "./GridNumbersJSX";
 
-import {BoardData} from "../../../Game/GetData";
+import {BoardData} from "../../../Game/GetData/GetData";
 import {GridRowJSX} from "./GridRowJSX";
 
 

@@ -7,6 +7,7 @@ import {Settings} from "./Settings";
 
 export class Game {
 
+
     static ins: Game;
 
     board : Board;

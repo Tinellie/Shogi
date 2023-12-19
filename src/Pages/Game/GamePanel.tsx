@@ -1,10 +1,11 @@
 import {BoardJSX} from "./Board/BoardJSX";
 import {Game} from "../../Game/Game";
-import {GetData} from "../../Game/GetData";
+import {GetData} from "../../Game/GetData/GetData";
 import {useState} from "react";
-import {Shogi} from "../../Game/Rules/Shogi";
 
 import './GamePanel.css';
+import './GamePanelFonts.css'
+import './Board/GridEffects.css'
 
 
 export function GamePanel({game}: {game: Game}) {

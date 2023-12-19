@@ -7,16 +7,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24b73a17-a36e-49a9-946f-d9df59d654a4" name="Changes" comment="[fix]: 修复重构后的错误&#10;&#10;1. 修复 GetData.ts 的功能&#10;2. 修复 Player.ts 移交棋子所有权的错误">
-      <change afterPath="$PROJECT_DIR$/src/Pages/Game/Board/GridJSX.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Pages/Game/Board/GridRowJSX.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Pages/Game/Board/PieceJSX.tsx" afterDir="false" />
+    <list default="true" id="24b73a17-a36e-49a9-946f-d9df59d654a4" name="Changes" comment="[refactor]: 拆分 BoardPanel.tsx 到 XxxJSX.tsx 多个文档中">
+      <change afterPath="$PROJECT_DIR$/src/Pages/Game/Board/Grid.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Pages/Game/Board/GridEffects.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Pages/Game/GamePanelFonts.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/Game.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Game.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/GetData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/GetData/GetData.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pages/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/Game/BoardPanel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Game/Board/BoardJSX.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Game/Board/BoardJSX.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Game/Board/BoardJSX.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Game/Board/GridJSX.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Game/Board/GridJSX.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Game/Board/GridRowJSX.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Game/Board/GridRowJSX.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Game/Board/PieceJSX.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Game/Board/PieceJSX.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pages/Game/CapturedPiecePanel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Game/CapturedPiecePanel.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Game/GamePanel.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Game/GamePanel.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pages/Game/GamePanel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Game/GamePanel.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/Game/GridNumbers.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Game/Board/GridNumbersJSX.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Test.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,9 +33,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
-        <option value="CSS File" />
         <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -43,6 +49,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
@@ -80,10 +89,10 @@
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\_Works2\230930\shogi\src\Pages\Game\Board" />
+      <recent name="D:\_Works2\230930\shogi\src\Game\GetData" />
       <recent name="D:\_Works2\230930\shogi\src\Game\Rules" />
       <recent name="D:\_Works2\230930\shogi\src\Game\Player" />
       <recent name="D:\_Works2\230930\shogi\src\Game" />
-      <recent name="D:\_Works2\230930\shogi\src\Game\Piece" />
     </key>
     <key name="es6.move.members.recent.items">
       <recent name="D:\_Works2\230930\shogi\src\Pages\Game\Board\PieceJSX.tsx" />
@@ -136,7 +145,7 @@
       <workItem from="1702550060211" duration="2172000" />
       <workItem from="1702715603848" duration="7874000" />
       <workItem from="1702815680577" duration="599000" />
-      <workItem from="1702992591047" duration="771000" />
+      <workItem from="1702992591047" duration="3129000" />
     </task>
     <task id="LOCAL-00001" summary="[init]: 完成檢測可移動格子功能">
       <option name="closed" value="true" />
@@ -210,7 +219,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702722924656</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="[refactor]: 拆分 BoardPanel.tsx 到 XxxJSX.tsx 多个文档中">
+      <option name="closed" value="true" />
+      <created>1702993433685</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1702993433685</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -250,7 +267,8 @@
     <MESSAGE value="[refactor]: 优化Board和piece的逻辑, 对 pos 等属性进行封装&#10;&#10;1. 优化 Board 和 Piece 的逻辑&#10;2. 拆分 Piece.ts 为三个文件&#10;3. 添加文件夹整理各个文件" />
     <MESSAGE value="[refactor]: 移除 Grid 类" />
     <MESSAGE value="[fix]: 修复重构后的错误&#10;&#10;1. 修复 GetData.ts 的功能&#10;2. 修复 Player.ts 移交棋子所有权的错误" />
-    <option name="LAST_COMMIT_MESSAGE" value="[fix]: 修复重构后的错误&#10;&#10;1. 修复 GetData.ts 的功能&#10;2. 修复 Player.ts 移交棋子所有权的错误" />
+    <MESSAGE value="[refactor]: 拆分 BoardPanel.tsx 到 XxxJSX.tsx 多个文档中" />
+    <option name="LAST_COMMIT_MESSAGE" value="[refactor]: 拆分 BoardPanel.tsx 到 XxxJSX.tsx 多个文档中" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -258,6 +276,11 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/Game/Board.ts</url>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/Pages/Game/Board/GridJSX.tsx</url>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

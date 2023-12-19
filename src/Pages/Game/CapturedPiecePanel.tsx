@@ -1,5 +1,5 @@
 import {map} from "./Board/BoardJSX";
-import {CapturedPieceData, GridData} from "../../Game/GetData";
+import {CapturedPieceData, GridData} from "../../Game/GetData/GetData";
 
 import {GridJSX} from "./Board/GridJSX";
 
