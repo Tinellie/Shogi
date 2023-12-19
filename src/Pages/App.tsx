@@ -17,7 +17,6 @@ function App() {
 
     return (//<div></div>
         <div id="App" className="App">
-            <div>a</div>
             <div id="Body">
                 <GamePanel game={game}></GamePanel>
 

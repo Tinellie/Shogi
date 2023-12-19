@@ -7,7 +7,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24b73a17-a36e-49a9-946f-d9df59d654a4" name="Changes" comment="[refactor]: 移除 Grid 类" />
+    <list default="true" id="24b73a17-a36e-49a9-946f-d9df59d654a4" name="Changes" comment="[fix]: 修复重构后的错误&#10;&#10;1. 修复 GetData.ts 的功能&#10;2. 修复 Player.ts 移交棋子所有权的错误">
+      <change afterPath="$PROJECT_DIR$/src/Pages/Game/Board/GridJSX.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Pages/Game/Board/GridRowJSX.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Pages/Game/Board/PieceJSX.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Game/BoardPanel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Game/Board/BoardJSX.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Game/CapturedPiecePanel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Game/CapturedPiecePanel.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Game/GamePanel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Game/GamePanel.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Game/GridNumbers.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Game/Board/GridNumbersJSX.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,8 +28,8 @@
       <list>
         <option value="JavaScript File" />
         <option value="CSS File" />
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -42,26 +52,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "feat-UI",
-    "last_opened_file_path": "D:/_Works2/230930/shogi",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_interpreter_path": "node",
-    "nodejs_package_manager_path": "npm",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2023.2.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/_Works2/230930/shogi&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\_Works2\\230930\\shogi\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\_Works2\230930\shogi\src\Game" />
@@ -69,14 +79,19 @@
       <recent name="D:\_Works2\230930\shogi\src\StyleSheets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\_Works2\230930\shogi\src\Pages\Game\Board" />
       <recent name="D:\_Works2\230930\shogi\src\Game\Rules" />
       <recent name="D:\_Works2\230930\shogi\src\Game\Player" />
       <recent name="D:\_Works2\230930\shogi\src\Game" />
       <recent name="D:\_Works2\230930\shogi\src\Game\Piece" />
-      <recent name="D:\_Works2\230930\shogi\src\Pages\Game" />
+    </key>
+    <key name="es6.move.members.recent.items">
+      <recent name="D:\_Works2\230930\shogi\src\Pages\Game\Board\PieceJSX.tsx" />
+      <recent name="D:\_Works2\230930\shogi\src\Pages\Game\Board\GridJSX.tsx" />
+      <recent name="D:\_Works2\230930\shogi\src\Pages\Game\Board\GridRowPanel.tsx" />
     </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.Debug Application">
+  <component name="RunManager" selected="npm.npm start">
     <configuration name="Debug Application" type="JavascriptDebugType" uri="http://localhost:3000">
       <method v="2" />
     </configuration>
@@ -120,6 +135,8 @@
       <workItem from="1702374567621" duration="660000" />
       <workItem from="1702550060211" duration="2172000" />
       <workItem from="1702715603848" duration="7874000" />
+      <workItem from="1702815680577" duration="599000" />
+      <workItem from="1702992591047" duration="771000" />
     </task>
     <task id="LOCAL-00001" summary="[init]: 完成檢測可移動格子功能">
       <option name="closed" value="true" />
@@ -232,14 +249,14 @@
     <MESSAGE value="[feat]: 捕获棋子会按顺序排列" />
     <MESSAGE value="[refactor]: 优化Board和piece的逻辑, 对 pos 等属性进行封装&#10;&#10;1. 优化 Board 和 Piece 的逻辑&#10;2. 拆分 Piece.ts 为三个文件&#10;3. 添加文件夹整理各个文件" />
     <MESSAGE value="[refactor]: 移除 Grid 类" />
-    <option name="LAST_COMMIT_MESSAGE" value="[refactor]: 移除 Grid 类" />
+    <MESSAGE value="[fix]: 修复重构后的错误&#10;&#10;1. 修复 GetData.ts 的功能&#10;2. 修复 Player.ts 移交棋子所有权的错误" />
+    <option name="LAST_COMMIT_MESSAGE" value="[fix]: 修复重构后的错误&#10;&#10;1. 修复 GetData.ts 的功能&#10;2. 修复 Player.ts 移交棋子所有权的错误" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/Game/Board.ts</url>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
