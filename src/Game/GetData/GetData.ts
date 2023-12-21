@@ -1,9 +1,9 @@
-import {Board, Grid} from "./Board";
-import {Piece} from "./Piece/Piece";
-import {PieceStatic} from "./Piece/PieceStatic";
-import {Game} from "./Game";
-import {Pos} from "./Pos";
-import {Player} from "./Player/Player";
+import {Board, Grid} from "../Board";
+import {Piece} from "../Piece/Piece";
+import {PieceStatic} from "../Piece/PieceStatic";
+import {Game} from "../Game";
+import {Pos} from "../Pos";
+import {Player} from "../Player/Player";
 
 export class BoardData {
     size: Pos;
@@ -23,7 +23,7 @@ export class RowData {
 export class GridData {
     selectable: boolean;
     piece: PieceData | null | undefined;
-    currentPlayerDirection: number
+    currentPlayerDirection: number;
 
     constructor(selectable: boolean, piece: PieceData | null | undefined, currentPlayerDirection: number) {
         this.selectable = selectable;

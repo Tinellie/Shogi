@@ -1,0 +1,49 @@
+@font-face {
+    font-family: "SH Serif - ExtraLight";
+    src: url('../../Fonts/SourceHanSerifTC-ExtraLight.otf') format('opentype');
+}
+
+@font-face {
+    font-family: "SH Serif - Light";
+    src: url('../../Fonts/SourceHanSerifTC-Light.otf') format("opentype");
+}
+
+@font-face {
+    font-family: "SH Serif - Regular";
+    src: url('../../Fonts/SourceHanSerifTC-Regular.otf') format('opentype');
+}
+
+@font-face {
+    font-family: "SH Serif - Medium";
+    src: url('../../Fonts/SourceHanSerifTC-Medium.otf') format('opentype');
+}
+
+@font-face {
+    font-family: "SH Serif - SemiBold";
+    src: url('../../Fonts/SourceHanSerifTC-SemiBold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: "SH Serif - Bold";
+    src: url('../../Fonts/SourceHanSerifTC-Bold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: "SH Serif - Heavy";
+    src: url('../../Fonts/SourceHanSerifTC-Heavy.otf') format('opentype');
+}
+
+@font-face {
+    font-family: "WHZ Regular - Bold";
+    src: url('../../Fonts/WangHanZong-Regular-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "WHZ SemiCursive - Medium";
+    src: url('../../Fonts/WangHanZong-SemiCursive-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "ZQLJ Cursive";
+    src: url('../../Fonts/ZhongQiLiuJiang-Cursive.ttf') format('truetype');
+}
