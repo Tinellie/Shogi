@@ -12,12 +12,11 @@ import {SettingsPanel} from "./Game/SettingsPanel";
 
 function App() {
 
-    const [game, setGame] = useState(new Game(new Shogi()));
+    const game = new Game(new Shogi());
 
 
     return (//<div></div>
         <div id="App" className="App">
-            <div>a</div>
             <div id="Body">
                 <GamePanel game={game}></GamePanel>
 

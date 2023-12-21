@@ -1,10 +1,11 @@
-import {BoardPanel} from "./BoardPanel";
+import {BoardJSX} from "./Board/BoardJSX";
 import {Game} from "../../Game/Game";
-import {GetData} from "../../Game/GetData";
+import {GetData} from "../../Game/GetData/GetData";
 import {useState} from "react";
-import {Shogi} from "../../Game/Rules/Shogi";
 
 import './GamePanel.css';
+import './GamePanelFonts.css'
+import './Board/GridEffects.css'
 
 
 export function GamePanel({game}: {game: Game}) {
@@ -14,13 +15,13 @@ export function GamePanel({game}: {game: Game}) {
 
     return (
         <div id="Game" className="Game">
-            <BoardPanel boardData={GetData.GetBoardData(game, game.board)}
-                        handleClick={(x, y) => {
+            <BoardJSX boardData={GetData.GetBoardData(game, game.board)}
+                      handleClick={(x, y) => {
                             game.board.handleClick(x, y, game.players.current)
                             setCount(count+1);
                         }
                         }
-                        rowNoType="number" columnNoType="chinese"/>
+                      rowNoType="number" columnNoType="chinese"/>
         </div>
     )
 }

@@ -5,7 +5,7 @@ import React, {useRef, useState} from "react";
 import {Shogi} from "../Game/Rules/Shogi";
 
 import './Test.css';
-import {GetData} from "../Game/GetData";
+import {GetData} from "../Game/GetData/GetData";
 
 const defaultX = 7;
 const defaultY = 6;
