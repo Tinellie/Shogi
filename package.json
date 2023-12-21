@@ -2,7 +2,7 @@
   "name": "shogi",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://mythoniateam.github.io/Shogi",
+  "homepage": "http://tinellie.github.io/Shogi",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
