@@ -1,8 +1,9 @@
 import {JSX} from "react";
 import {GridNumbersJSX} from "./GridNumbersJSX";
 
-import {BoardData} from "../../../Game/GetData/GetData";
 import {GridRowJSX} from "./GridRowJSX";
+import {BoardData} from "../../../Game/GetData/Data";
+
 
 
 export function map(length: number, func: (i: number) => JSX.Element){
@@ -14,7 +15,8 @@ export function map(length: number, func: (i: number) => JSX.Element){
 
 
 export function BoardJSX({boardData, handleClick, rowNoType, columnNoType}:
-                          {boardData: BoardData, handleClick: (x: number, y: number) => void
+                          {boardData:BoardData,
+                              handleClick: (x: number, y: number, updateGridMethod: (x: number, y: number)=>void) => void
                               rowNoType: string, columnNoType: string}) {
 
     // function handleClick(x: number, y: number) {
@@ -23,6 +25,14 @@ export function BoardJSX({boardData, handleClick, rowNoType, columnNoType}:
     // }
 
     let height = boardData.rows.length - 1;
+
+    const updateGridsMethods: (()=>void)[][] = Array(boardData.height)
+    for (let i = 0; i < boardData.height; i++) {
+        updateGridsMethods[i] = Array(boardData.width);
+    }
+    function updateGrid(x: number, y: number){
+        updateGridsMethods[y][x]()
+    }
 
     return (
         <div id="game-board">
@@ -35,7 +45,11 @@ export function BoardJSX({boardData, handleClick, rowNoType, columnNoType}:
                 boardData.rows.length, (y) =>
                 <GridRowJSX
                     row={boardData.rows[height - y]}
-                    handleClick = {(x) => {handleClick(x, height - y)}}
+                    y={height - y}
+                    handleClick = {
+                        (x) => {handleClick(x, height - y, updateGrid)}
+                    }
+                    updateGridMethods={updateGridsMethods}
                 />
                 )
             }

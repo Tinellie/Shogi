@@ -5,7 +5,6 @@ import {useState} from "react";
 
 import './GamePanel.css';
 import './GamePanelFonts.css'
-import './Board/GridEffects.css'
 
 
 export function GamePanel({game}: {game: Game}) {
@@ -16,8 +15,8 @@ export function GamePanel({game}: {game: Game}) {
     return (
         <div id="Game" className="Game">
             <BoardJSX boardData={GetData.GetBoardData(game, game.board)}
-                      handleClick={(x, y) => {
-                            game.board.handleClick(x, y, game.players.current)
+                      handleClick={(x, y, updateGridMethod) => {
+                            game.board.handleClick(x, y, game.players.current, updateGridMethod)
                             setCount(count+1);
                         }
                         }

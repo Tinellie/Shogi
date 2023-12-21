@@ -1,5 +1,4 @@
 import {Player} from "./Player";
-import {JSX} from "react";
 import {Game} from "../Game";
 
 export class PlayerManager {

@@ -1,73 +1,8 @@
 import {Board, Grid} from "../Board";
 import {Piece} from "../Piece/Piece";
-import {PieceStatic} from "../Piece/PieceStatic";
 import {Game} from "../Game";
-import {Pos} from "../Pos";
 import {Player} from "../Player/Player";
-
-export class BoardData {
-    size: Pos;
-    rows: RowData[];
-    constructor(gridRows:RowData[], size: Pos) {
-        this.rows = gridRows;
-        this.size = size;
-    }
-}
-export class RowData {
-    grids: GridData[];
-    constructor(grids: GridData[]) {
-        this.grids = grids;
-    }
-
-}
-export class GridData {
-    selectable: boolean;
-    piece: PieceData | null | undefined;
-    currentPlayerDirection: number;
-
-    constructor(selectable: boolean, piece: PieceData | null | undefined, currentPlayerDirection: number) {
-        this.selectable = selectable;
-        this.piece = piece;
-        this.currentPlayerDirection = currentPlayerDirection;
-    }
-}
-export class PieceData {
-    direction: number;
-    get symbol() {
-        return this.pieceStatic.name;
-    }
-
-    pieceStatic: PieceStatic;
-
-    constructor(direction: number, pieceStatic: PieceStatic) {
-        this.direction = direction;
-        this.pieceStatic = pieceStatic;
-    }
-}
-
-class PieceDataPair {
-    pieceData: PieceData;
-    no: number;
-
-    constructor(piece: Piece, no: number = 1) {
-        this.pieceData = GetData.GetPieceData(piece);
-        this.no = no;
-    }
-
-    matches(piece: Piece): boolean {
-        let data = GetData.GetPieceData(piece);
-        return data.symbol === this.pieceData.symbol && data.direction === this.pieceData.direction;
-    }
-
-}
-
-export class CapturedPieceData {
-    pieces: PieceDataPair[];
-
-    constructor(pieces: PieceDataPair[]) {
-        this.pieces = pieces;
-    }
-}
+import {BoardData, CapturedPieceData, GridData, PieceData, PieceDataPair, RowData} from "./Data";
 
 export class GetData {
     static GetBoardData(game: Game, board: Board): BoardData {

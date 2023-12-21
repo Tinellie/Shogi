@@ -1,12 +1,24 @@
-import {GridData} from "../../../Game/GetData/GetData";
 import {PieceJSX} from "./PieceJSX";
 
-import './Grid.css';
-import './GridEffects.css';
+import './GridJSX.css';
+import './GridJSXEffects.css';
+import {GridData} from "../../../Game/GetData/Data";
+import {Pos} from "../../../Game/Pos";
+import {useState} from "react";
 
 
 
-export function GridJSX({grid, handleClick}: { grid: GridData, handleClick: () => void }) {
+export function GridJSX({grid, xy, handleClick, updateGridMethods}:
+                            { grid: GridData, xy: Pos,
+                                handleClick: () => void,
+                                updateGridMethods: (()=>void)[][]
+                            }) {
+    console.log(`--- RERENDER Grid #${xy}`);
+
+    const [count, setCount] = useState(0)
+
+    updateGridMethods[xy.y][xy.x] = () => setCount(count+1);
+
     /*
     1. 格子可以移动, 上面是空格
        => 斜线 + 当前玩家颜色 高亮
@@ -19,8 +31,8 @@ export function GridJSX({grid, handleClick}: { grid: GridData, handleClick: () =
 
     return (
         <button
-            className={`grid${grid.selectable ? " selectable" : ""}` +
-                (grid.currentPlayerDirection === -1 ? " player2" : " player1")}
+            className={`grid${grid.status ? " selectable" : ""}` +
+                (grid.colorOfPlayer === -1 ? " player2" : " player1")}
             onClick={() => handleClick()}
         >
             {(grid.piece != null) ? <PieceJSX piece={grid.piece}/> : null}

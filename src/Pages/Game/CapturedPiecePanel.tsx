@@ -1,7 +1,6 @@
 import {map} from "./Board/BoardJSX";
-import {CapturedPieceData, GridData} from "../../Game/GetData/GetData";
 
-import {GridJSX} from "./Board/GridJSX";
+import {CapturedPieceData} from "../../Game/GetData/Data";
 
 
 export function CapturedPiecePanel({capturedPieceData} : {capturedPieceData: CapturedPieceData}){
@@ -9,10 +8,11 @@ export function CapturedPiecePanel({capturedPieceData} : {capturedPieceData: Cap
         {
             map(
                 capturedPieceData.pieces.length, (x) =>
-                    <GridJSX
+                    <></>/*<GridJSX
                         grid = {new GridData(false, capturedPieceData.pieces[x].pieceData, 0)}
+                        xy = {new Pos(-1, -1)}
                         handleClick = {() => {}}
-                    />
+                    />*/
             )
         }
     </div>)

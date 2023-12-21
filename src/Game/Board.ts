@@ -64,6 +64,42 @@ export class Board {
 
 
 
+
+    handleClick(x : number, y : number, player : Player, updateGridMethod: (x: number, y: number) => void) : /*Pos[]*/void {
+        console.log(`Handle Click: (${x},${y}), player: ${player.direction/*_getData()*/}`)
+        let currentPiece: Grid = this.grid(x, y);
+
+        if (player.selectedPiece === null ||
+            (currentPiece?.belongTo(player) && currentPiece !== player.selectedPiece)) {
+            //如果没有选择棋子
+            //或点击的格子是属于玩家的棋子, 且不等于当前选择的棋子 那么选择格子
+
+            console.log(currentPiece);
+            console.log(`- belong to current player? ${currentPiece?.player === player}`);
+            if (currentPiece !== null && currentPiece.player === player) {
+                player.select(currentPiece);
+                //获取该棋子可移动的格子, 设置高亮
+                //player.selectedPiece?.getWalkableGrids()
+            }
+        }
+        else {
+            //如果已经选择了棋子
+            //且点选的格子不属于自己, 或是点选已选择的格子
+            //那么判断是否能够移动
+            //移动棋子, 如果点选了无法移动的格子会返回 false
+            if (this.tryMove(player.selectedPiece, new Pos(x, y))){
+                this.game.players.nextPlayer();
+                console.log("-------- turn ends --------")
+            }
+            //清除已选棋子;
+            player.selectClear();
+        }
+
+    }
+
+
+
+
     constructor(game: Game, size: Pos) {
         this.game = game;
 
@@ -130,36 +166,7 @@ export class Board {
     }
 
 
-    handleClick(x : number, y : number, player : Player) : void {
-        console.log(`Handle Click: (${x},${y}), player: ${player.direction/*_getData()*/}`)
-        let currentPiece: Grid = this.grid(x, y);
 
-        if (player.selectedPiece === null ||
-            (currentPiece?.belongTo(player) && currentPiece !== player.selectedPiece)) {
-            //如果没有选择棋子
-            //或点击的格子是属于玩家的棋子, 且不等于当前选择的棋子 那么选择格子
-
-            console.log(currentPiece);
-            console.log(`- belong to current player? ${currentPiece?.player === player}`);
-            if (currentPiece !== null && currentPiece.player === player) {
-                player.select(currentPiece);
-                //获取该棋子可移动的格子, 设置高亮
-            }
-        }
-        else {
-            //如果已经选择了棋子
-            //且点选的格子不属于自己, 或是点选已选择的格子
-            //那么判断是否能够移动
-            //移动棋子, 如果点选了无法移动的格子会返回 false
-            if (this.tryMove(player.selectedPiece, new Pos(x, y))){
-                this.game.players.nextPlayer();
-                console.log("-------- turn ends --------")
-            }
-            //清除已选棋子;
-            player.selectClear();
-        }
-
-    }
 
     f(g: Game){
 
@@ -177,6 +184,9 @@ export class Board {
 
         console.warn(`piece ${piece.name}, walkable Grids: ${"\n" +output}`);
     }
+
+
+
 
     //检测棋子是否可以走到格子, 且该移动合法
     isValidWalkableGrid(piece: Piece | null, pos: Pos): boolean {

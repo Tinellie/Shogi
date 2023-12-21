@@ -1,4 +1,5 @@
 import {Settings} from "../../Game/Settings";
+import React from "react";
 
 export function SettingsPanel({settings} : {settings: Settings}){
     return <div>
