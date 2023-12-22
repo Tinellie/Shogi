@@ -29,7 +29,7 @@ export class PieceManager {
     }
 
     addStatic(piece: PieceStatic) : void {
-        this.statics[this.statics.length] = piece;
+        this.statics.push(piece);
     }
     clearStatics(): void{
         this.statics = [];

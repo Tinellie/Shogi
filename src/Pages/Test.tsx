@@ -12,8 +12,8 @@ function Func(g: Game, pos: Pos | null | undefined){
     let grids: Pos[] = [];
     let piece: Piece | null = null;
     if(pos !== null && pos !== undefined){
-        piece = g.board.gridP(pos) as Piece;
-        grids = g.board.getValidWalkableGrids(piece);
+        piece = g.board.gridP(pos);
+        grids = piece instanceof Piece ? piece.getValidWalkableGrids() : [];
     }
     let results: string[] = [piece?.name ?? "/", "____ [0] [1] [2] [3] [4] [5] [6] [7] [8]"];
 
@@ -22,12 +22,12 @@ function Func(g: Game, pos: Pos | null | undefined){
         for (let ix = 0; ix < 9; ix++) {
             let sym = ()=>g.board.grid(ix, iy)?.symbol;
             result += (ix === pos?.x && iy === pos?.y) ? `[${sym()??" "}]`:
-                (grids.find((pos) => pos.x === ix && pos.y === iy))?
+                (grids?.find((pos) => pos.x === ix && pos.y === iy))?
                     (g.board.grid(ix, iy) !== null) ? `(${sym()})` : " ● ":
                     (g.board.grid(ix, iy) !== null) ? ` ${sym()} ` : " _ ";
             result += "|"
         }
-        results[results.length] = result;
+        results.push(result);
     }
     return results;
 }
@@ -35,7 +35,6 @@ function Func(g: Game, pos: Pos | null | undefined){
 
 export function Test({game} : {game: Game}) {
 
-    console.warn("Test() Start");
 
     const [currentPlayer, setPlayer] = useState(0);
     const [X, setX] = useState(defaultX);
@@ -54,7 +53,6 @@ export function Test({game} : {game: Game}) {
     //   isMounted.current = true;
     // }, []);
 
-    console.warn("Test() Mid");
 
 
     console.warn(`${game}`)
@@ -69,14 +67,13 @@ export function Test({game} : {game: Game}) {
     let selectedPiece = game.players.list[currentPlayer].selectedPiece;
     content = Func(game, selectedPiece?.pos);
 
-    console.warn("Test() End");
     console.warn(GetData.GetCapturedPiecesData(game.players.list[0]));
 
 
     return (
         <div className="Test">
             <div>
-                {`${game.board.getValidWalkableGrids(game.board.grid(X, Y))}`}
+                {`${game.board.grid(X, Y)?.getValidWalkableGrids()}`}
             </div>
             <div>
                 {`X: ${X}, Y: ${Y}`}

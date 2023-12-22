@@ -28,7 +28,7 @@ export class PlayerManager {
     }
 
     addPlayer(player: Player) {
-        this.list[this.list.length] = player;
+        this.list.push(player);
     }
 
     nextPlayer() {

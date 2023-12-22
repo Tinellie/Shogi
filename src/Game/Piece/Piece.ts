@@ -54,8 +54,10 @@ export class Piece {
         }
         this._pos = pos;
     }
+    absP = (rX: number, rY: number) => new Pos(this.absX(rX), this.absY(rY));
     absX = (rX: number) => this.pos.x + rX ;//* this.player.direction;
     absY = (rY: number) => this.pos.y + rY * this._player.direction;
+    rP = (absX: number, absY: number) => new Pos(this.rX(absX), this.rY(absY));
     rX = (absX: number) => absX - this.pos.x;//* this.player.direction;
     rY = (absY: number) => (absY - this.pos.y) / this._player.direction;//* this.player.direction;
 
@@ -82,36 +84,52 @@ export class Piece {
 
     belongTo = (player: Player) => player === this._player;
     //以 **相对坐标** 获取指定格子上的棋子
-    getPiece: GetPieceFunc = (relX: number, relY: number) => {
-        return this.board.grid(this.absX(relX), this.absY(relY));
+    getPiece: GetPieceFunc = (rx: number, ry: number) => {
+        return this.board.grid(this.absX(rx), this.absY(ry));
     }
 
 
     //以相对坐标指定一个格子，返回 bool 值表示是否可以行走
-    isWalkable (rx: number, ry: number): boolean  {
+    isWalkable (rX: number, rY: number): boolean  {
         return this.static.isWalkable(
-            rx, ry,
+            rX, rY,
             this.getPiece,
             (p: Piece | null): boolean => p?._player === this._player
         );
     }
+    //以绝对坐标指定一个格子，返回 bool 值表示是否可以行走
     isWalkableAbs (absX: number, absY: number): boolean {
         return this.isWalkable(this.rX(absX), this.rY(absY));
     }
+    //以相对坐标指定一个格子，返回 bool 值表示是否可以行走 且移动合法
+    isValidWalkable(rX: number, rY: number): boolean{
+        return this.isWalkable(rX, rY) && this.board.checkMoveValidity(this, this.absP(rX, rY))
+    }
+    //以绝对坐标指定一个格子，返回 bool 值表示是否可以行走
+    isValidWalkableAbs (absX: number, absY: number): boolean {
+        return this.isValidWalkable(this.rX(absX), this.rY(absY));
+    }
 
     //逐个格子遍历, 获取能行走的棋子
-    getWalkableGrids(boardSize: Pos): Pos[] {
+    getGrids(condition: (rx: number, ry: number)=>boolean): Pos[] {
         let walkableGrids: Pos[] = [];
 
-        for(let x: number = 0; x < boardSize.x; x++) {
-            for(let y: number = 0; y < boardSize.y; y++) {
-                //console.log(`isWalkable (${x},${y}) => (${this.rX(x)},${this.rY(y)}) = ${this.isWalkable(this.rX(x), this.rY(y))}`);
-                if (this.isWalkable(this.rX(x), this.rY(y))) {
-                    walkableGrids[walkableGrids.length] = Pos.p(y, x);
+        for(let x: number = 0; x < this.board.width; x++) {
+            for(let y: number = 0; y < this.board.height; y++) {
+                let [rx, ry] = this.rP(x, y).decompose;
+                if (condition(rx, ry)){
+                    //检测是否可以移动, 移动是否合法
+                    //如果可以移动, 那么添加到列表
+                    walkableGrids.push(new Pos(x, y));
                 }
+
             }
         }
         return walkableGrids;
+    }
+    //逐个格子遍历, 获取能行走且移动合法的棋子
+    getValidWalkableGrids(): Pos[] {
+        return this.getGrids((rx, ry) => this.isValidWalkable(rx, ry));
     }
 
 

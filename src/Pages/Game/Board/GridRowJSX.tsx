@@ -8,7 +8,7 @@ export function GridRowJSX({row, y, handleClick, updateGridMethods}:
                                      handleClick: (x: number) => void,
                                      updateGridMethods: (()=>void)[][]
                                  }) {
-    console.log(`- RERENDER Grid Row #${y}`);
+    //console.log(`- RERENDER Grid Row #${y}`);
 
 
     return (

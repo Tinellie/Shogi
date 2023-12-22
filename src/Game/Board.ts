@@ -173,7 +173,7 @@ export class Board {
         let x = 0;
         let y = 0;
         let piece = g.board.grid(x, y) as Piece;
-        let grids = g.board.getValidWalkableGrids(piece);
+        let grids = piece.getValidWalkableGrids();
         let output : string = "";
         for (let iy= 0; iy < 9; iy++) {
             for (let ix= 0; ix < 9; ix++) {
@@ -187,39 +187,8 @@ export class Board {
 
 
 
-
-    //检测棋子是否可以走到格子, 且该移动合法
-    isValidWalkableGrid(piece: Piece | null, pos: Pos): boolean {
-        return piece !== null &&
-            piece.isWalkable(piece.rX(pos.x), piece.rY(pos.y)) &&
-            this.isValidMove(piece, new Pos(pos.x, pos.y));
-
-    }
-    //给定棋子, 获取该棋子 可移动的格子坐标列表
-    getValidWalkableGrids(piece: Piece | null): Pos[] {
-        if (piece === null) return [];
-
-        //调用 piece 的函数, 获取 piece 可以移动的格子
-        let walkableGrids: Pos[]
-            = piece.getWalkableGrids(this.size);
-        //输出判断合法性前的格子数量
-        console.log(`No of WalkableGrids = ${walkableGrids.length}`);
-        console.log(walkableGrids);
-
-        //遍历 piece 可移动的格子, 从棋盘角度判断移动合法性(会不会导致被诘将)
-        let walkableGrids2: Pos[] = [];
-        walkableGrids.forEach(
-            (pos) => {
-                if(this.isValidMove(piece, pos)) walkableGrids2[walkableGrids2.length] = pos;
-            });
-        //输出判断合法性后的格子数量
-        console.log(`No of Valid WalkableGrids = ${walkableGrids2.length}`);
-
-        return walkableGrids2;
-    }
-
     //检查棋子 piece 移动到 pos 是否合法 (是否会将军等问题)
-    isValidMove(piece: Piece, pos: Pos): boolean {
+    checkMoveValidity(piece: Piece, pos: Pos): boolean {
         // if(/*正在将军*/) {
         //     //检查移动后是否解决将军
         //     if (/*没解决*/) return false;
@@ -232,11 +201,12 @@ export class Board {
         return true;
     }
 
+
     tryMove(piece: Piece, pos: Pos): boolean {
         console.log(`- try move ${piece.id} to ${pos}`);
 
         //如果不是可移动的格子, 直接返回假
-        if (!this.isValidWalkableGrid(piece, pos)) {
+        if (!piece.isValidWalkableAbs(pos.x, pos.y)) {
             console.log(`- not valid movable grid`)
             return false;
         }
@@ -309,21 +279,3 @@ export class Board {
 
 
 }
-
-
-/*export class Grid{
-    public piece : Piece | null = null;
-    public readonly pos: Pos
-
-    constructor(x: number, y: number, piece : Piece | null = null) {
-        this.pos = new Pos(x, y);
-        this.piece = piece;
-    }
-    toString(): string {
-        return this.piece ? this.piece.symbol : " ";
-    }
-
-    belongTo = (player : Player) => this.piece !== null && this.piece.belongTo(player);
-    
-    public get occupied(): boolean { return this.piece !== null; }
-}*/

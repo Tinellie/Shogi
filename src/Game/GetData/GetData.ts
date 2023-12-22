@@ -3,6 +3,7 @@ import {Piece} from "../Piece/Piece";
 import {Game} from "../Game";
 import {Player} from "../Player/Player";
 import {BoardData, CapturedPieceData, GridData, PieceData, PieceDataPair, RowData} from "./Data";
+import {Pos} from "../Pos";
 
 export class GetData {
     static GetBoardData(game: Game, board: Board): BoardData {
@@ -15,7 +16,7 @@ export class GetData {
         return new RowData(row.map((grid, x) => this.GetGridData(game, grid, x, y)))
     }
     static GetGridData(game: Game, grid: Grid, x: number, y: number): GridData {
-        return new GridData(game.players.current.selectedPiece?.isWalkableAbs(x, y) ?? false,
+        return new GridData(game.players.current.selectedPiece?.isValidWalkableAbs(x, y) ?? false,
             grid === null ? null : this.GetPieceData(grid),
             game.players.current.direction);
     }

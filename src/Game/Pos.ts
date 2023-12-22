@@ -11,6 +11,10 @@ export class Pos {
         return `(${this.x}, ${this.y})`
     }
 
+    get decompose() {
+        return [this.x, this.y];
+    }
+
     get clone(): Pos {
         return new Pos(this.x, this.y);
     }
@@ -26,6 +30,8 @@ export class Pos {
                 Pos.p(pos[0], pos[1])
         )
     }
+
+
 
     //static sq(size: number) : Pos { return new Pos(size, size); }
 }

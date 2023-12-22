@@ -13,7 +13,7 @@ export function GridJSX({grid, xy, handleClick, updateGridMethods}:
                                 handleClick: () => void,
                                 updateGridMethods: (()=>void)[][]
                             }) {
-    console.log(`--- RERENDER Grid #${xy}`);
+    //console.log(`--- RERENDER Grid #${xy}`);
 
     const [count, setCount] = useState(0)
 
