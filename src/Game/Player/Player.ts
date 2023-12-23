@@ -1,4 +1,5 @@
 import {Piece} from "../Piece/Piece";
+import {Grid} from "../Board";
 
 
 export class Player {
@@ -38,8 +39,15 @@ export class Player {
     }
 
     //检测是否敌对玩家
-    isHostileTo(player: Player) {
+    isHostileTo(player: Player): boolean {
         return player.direction !== this.direction;
+    }
+
+    isOwnGrid(grid: Grid): boolean {
+        return grid?.belongTo(this) ?? false;
+    }
+    isHostileGrid(grid: Grid): boolean {
+        return grid !== null && this.isHostileTo(grid.player);
     }
 
     addPiece(piece: Piece): void {

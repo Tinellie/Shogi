@@ -31,6 +31,7 @@ export enum GridStatus {
 }
 
 export class GridData {
+
     /*
     Grid需要的数据
     - 格子样式
@@ -42,11 +43,11 @@ export class GridData {
     - 玩家的颜色
      */
 
-    status: boolean;//GridStatus;
+    status: GridStatus;
     piece: PieceData | null | undefined;
     colorOfPlayer: number;
 
-    constructor(status: boolean/*GridStatus*/, piece: PieceData | null | undefined, colorOfPlayer: number) {
+    constructor(status: GridStatus, piece: PieceData | null | undefined, colorOfPlayer: number) {
         this.status = status;
         this.piece = piece;
         this.colorOfPlayer = colorOfPlayer;

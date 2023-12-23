@@ -2,8 +2,8 @@ import {PieceJSX} from "./PieceJSX";
 
 import './GridJSX.css';
 import './GridJSXEffects.css';
-import {GridData} from "../../../Game/GetData/Data";
-import {Pos} from "../../../Game/Pos";
+import {GridData, GridStatus} from "../../../Game/GetData/Data";
+import {Pos, v} from "../../../Game/Pos";
 import {useState} from "react";
 
 
@@ -29,10 +29,20 @@ export function GridJSX({grid, xy, handleClick, updateGridMethods}:
 
      */
 
+    // if(grid.status != 0){
+    //     console.warn(v(grid.status).is([GridStatus.movable, GridStatus.movableCaptureble]));
+    //     console.warn(`grid.status: ${grid.status}`);
+    // }
+    // else console.log(`grid.status: ${grid.status}`)
     return (
         <button
-            className={`grid${grid.status ? " selectable" : ""}` +
-                (grid.colorOfPlayer === -1 ? " player2" : " player1")}
+            className={
+                `grid ${
+                    v(grid.status).is([GridStatus.movable, GridStatus.movableCaptureble]) ? "selectable" : ""
+                } ${
+                    (grid.colorOfPlayer === -1 ? "player2" : "player1")
+                }`.trimEnd()
+            }
             onClick={() => handleClick()}
         >
             {(grid.piece != null) ? <PieceJSX piece={grid.piece}/> : null}

@@ -15,6 +15,9 @@ export class Game {
 
     pieces: PieceManager;
     players: PlayerManager;
+    get currentPlayer() {
+        return this.players.current;
+    }
 
     settings: Settings = new Settings();
 

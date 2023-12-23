@@ -1,3 +1,23 @@
+
+
+export function v<T>(v1: T) {
+
+    return {
+        inRange: (min: number, max: number) => {
+            if (min > max) {
+                [min, max] = [max, min];
+            }
+            return min <= v1 && v1 <= max;
+        },
+        is: (vs: T[]) => {
+            for (const v2 of vs) {
+                if (v2 === v1) return true;
+            }
+            return false;
+        }
+    }
+}
+
 export class Pos {
 
     x: number; y: number;
