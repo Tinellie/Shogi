@@ -1,10 +1,9 @@
 import {map} from "./BoardJSX";
 import {GridJSX} from "./GridJSX";
-import {RowData} from "../../../Game/GetData/Data";
-import {Pos} from "../../../Game/Pos";
+import {Game} from "../../../Game/Game";
 
-export function GridRowJSX({row, y, handleClick, updateGridMethods}:
-                                 { row: RowData, y: number,
+export function GridRowJSX({game, y, handleClick, updateGridMethods}:
+                                 { game: Game, y: number,
                                      handleClick: (x: number) => void,
                                      updateGridMethods: (()=>void)[][]
                                  }) {
@@ -15,10 +14,10 @@ export function GridRowJSX({row, y, handleClick, updateGridMethods}:
         <div className="board-row">
             {
                 map(
-                    row.grids.length, (x) =>
+                    game.board.width, (x) =>
                         <GridJSX
-                            grid={row.grids[x]}
-                            xy={new Pos(x, y)}
+                            game={game}
+                            x={x} y={y}
                             handleClick={() => handleClick(x)}
                             updateGridMethods={updateGridMethods}
                         />

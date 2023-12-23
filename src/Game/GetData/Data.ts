@@ -72,10 +72,10 @@ export class BoardData {
     get height() { return this.size.y; }
 
     size: Pos;
-    rows: RowData[];
+    // rows: RowData[];
 
-    constructor(gridRows: RowData[], size: Pos) {
-        this.rows = gridRows;
+    constructor(/*gridRows: RowData[], */size: Pos) {
+        // this.rows = gridRows;
         this.size = size;
     }
 }

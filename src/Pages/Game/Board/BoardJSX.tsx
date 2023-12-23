@@ -3,6 +3,7 @@ import {GridNumbersJSX} from "./GridNumbersJSX";
 
 import {GridRowJSX} from "./GridRowJSX";
 import {BoardData} from "../../../Game/GetData/Data";
+import {Game} from "../../../Game/Game";
 
 
 
@@ -14,8 +15,8 @@ export function map(length: number, func: (i: number) => JSX.Element){
 
 
 
-export function BoardJSX({boardData, handleClick, rowNoType, columnNoType}:
-                          {boardData:BoardData,
+export function BoardJSX({game, boardData, handleClick, rowNoType, columnNoType}:
+                          {game: Game, boardData: BoardData,
                               handleClick: (x: number, y: number, updateGridMethod: (x: number, y: number)=>void) => void
                               rowNoType: string, columnNoType: string}) {
 
@@ -24,7 +25,7 @@ export function BoardJSX({boardData, handleClick, rowNoType, columnNoType}:
     //     setCount(count + 1);
     // }
 
-    let height = boardData.rows.length - 1;
+    let height = boardData.height - 1;
 
     const updateGridsMethods: (()=>void)[][] = Array(boardData.height)
     for (let i = 0; i < boardData.height; i++) {
@@ -42,9 +43,9 @@ export function BoardJSX({boardData, handleClick, rowNoType, columnNoType}:
             <div id="game-board-inner">
             {
                 map(
-                boardData.rows.length, (y) =>
+                boardData.height, (y) =>
                 <GridRowJSX
-                    row={boardData.rows[height - y]}
+                    game={game}
                     y={height - y}
                     handleClick = {
                         (x) => {handleClick(x, height - y, updateGrid)}

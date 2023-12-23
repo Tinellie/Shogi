@@ -14,7 +14,8 @@ export function GamePanel({game}: {game: Game}) {
 
     return (
         <div id="Game" className="Game">
-            <BoardJSX boardData={GetData.GetBoardData(game, game.board)}
+            <BoardJSX game={game}
+                      boardData={GetData.GetBoardData(game.board)}
                       handleClick={(x, y, updateGridMethod) => {
                             game.board.handleClick(x, y, game.players.current, updateGridMethod)
                             setCount(count+1);

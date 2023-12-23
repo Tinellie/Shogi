@@ -2,14 +2,16 @@ import {PieceJSX} from "./PieceJSX";
 
 import './GridJSX.css';
 import './GridJSXEffects.css';
-import {GridData, GridStatus} from "../../../Game/GetData/Data";
-import {Pos, v} from "../../../Game/Pos";
+import {GridStatus} from "../../../Game/GetData/Data";
+import {v} from "../../../Game/Pos";
 import {useState} from "react";
+import {GetData} from "../../../Game/GetData/GetData";
+import {Game} from "../../../Game/Game";
 
 
 
-export function GridJSX({grid, xy, handleClick, updateGridMethods}:
-                            { grid: GridData, xy: Pos,
+export function GridJSX({game, x, y, handleClick, updateGridMethods}:
+                            { game: Game, x: number, y: number,
                                 handleClick: () => void,
                                 updateGridMethods: (()=>void)[][]
                             }) {
@@ -17,7 +19,7 @@ export function GridJSX({grid, xy, handleClick, updateGridMethods}:
 
     const [count, setCount] = useState(0)
 
-    updateGridMethods[xy.y][xy.x] = () => setCount(count+1);
+    updateGridMethods[y][x] = () => setCount(count+1);
 
     /*
     1. 格子可以移动, 上面是空格
@@ -34,6 +36,9 @@ export function GridJSX({grid, xy, handleClick, updateGridMethods}:
     //     console.warn(`grid.status: ${grid.status}`);
     // }
     // else console.log(`grid.status: ${grid.status}`)
+
+    let grid = GetData.GetGridData(game, x, y)
+
     return (
         <button
             className={
