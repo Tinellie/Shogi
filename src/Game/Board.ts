@@ -64,38 +64,45 @@ export class Board {
 
 
 
+    handleClick(x : number, y : number, player : Player) : void {
 
-    handleClick(x : number, y : number, player : Player, updateGridMethod: (x: number, y: number) => void) : /*Pos[]*/void {
-        console.log(`Handle Click: (${x},${y}), player: ${player.direction/*_getData()*/}`)
         let currentPiece: Grid = this.grid(x, y);
+        console.warn(`Handle Click: (${x},${y}), player: ${player.direction} Piece: ${currentPiece}`);
 
-        if (player.selectedPiece === null ||
-            (currentPiece?.belongTo(player) && currentPiece !== player.selectedPiece)) {
-            //如果没有选择棋子
-            //或点击的格子是属于玩家的棋子, 且不等于当前选择的棋子 那么选择格子
 
-            console.log(currentPiece);
-            console.log(`- belong to current player? ${currentPiece?.player === player}`);
-            if (currentPiece !== null && currentPiece.player === player) {
-                player.select(currentPiece);
-                //获取该棋子可移动的格子, 设置高亮
-                //player.selectedPiece?.getWalkableGrids()
-            }
+        if (currentPiece !== player.selectedPiece && currentPiece !== null && currentPiece.belongTo(player)) {
+            //如果点选的棋子属于玩家,
+            //且不是已经选取的棋子 (点击已选取的棋子会取消选择)
+            //那么选取棋子
+
+            //console.log(`- belong to current player? ${currentPiece.belongTo(player)}`);
+
+            this.game.renderManager.selectClear();
+            player.select(currentPiece);
+            this.game.renderManager.select(player, new Pos(x, y));
+
+
         }
-        else {
-            //如果已经选择了棋子
-            //且点选的格子不属于自己, 或是点选已选择的格子
+        else if (player.selectedPiece !== null) {
+            let piece = player.selectedPiece.pos;
+
+            //如果已经选择了棋子, 且新点选的格子不属于自己
             //那么判断是否能够移动
-            //移动棋子, 如果点选了无法移动的格子会返回 false
             if (this.tryMove(player.selectedPiece, new Pos(x, y))){
                 this.game.players.nextPlayer();
-                console.log("-------- turn ends --------")
+                console.warn("-------- turn ends --------")
             }
             //清除已选棋子;
             player.selectClear();
+
+            this.game.renderManager.selectClear();
+            this.game.renderManager.rerenderGrid(piece.x, piece.y);
+
+
         }
 
     }
+
 
 
 

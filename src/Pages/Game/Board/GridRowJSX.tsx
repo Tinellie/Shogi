@@ -2,12 +2,13 @@ import {map} from "./BoardJSX";
 import {GridJSX} from "./GridJSX";
 import {Game} from "../../../Game/Game";
 
-export function GridRowJSX({game, y, handleClick, updateGridMethods}:
+export function GridRowJSX({game, y, /*handleClick,*/ updateGridMethodsArray}:
                                  { game: Game, y: number,
-                                     handleClick: (x: number) => void,
-                                     updateGridMethods: (()=>void)[][]
+                                     //handleClick: (x: number) => void,
+                                     updateGridMethodsArray: (()=>void)[][]
                                  }) {
-    //console.log(`- RERENDER Grid Row #${y}`);
+    console.log(`- RERENDER Grid Row #${y}`);
+
 
 
     return (
@@ -18,8 +19,7 @@ export function GridRowJSX({game, y, handleClick, updateGridMethods}:
                         <GridJSX
                             game={game}
                             x={x} y={y}
-                            handleClick={() => handleClick(x)}
-                            updateGridMethods={updateGridMethods}
+                            updateGridMethodsArray={updateGridMethodsArray}
                         />
                 )
             }

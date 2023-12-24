@@ -92,7 +92,11 @@ export class Player {
         console.log(`- select ${piece.id}`)
         this._selectedPiece = piece;
     }
-    selectClear() : void {
+    selectClear() : Piece {
+        if (this._selectedPiece === null)
+            throw new Error(`${this} has no Selected Piece, but tried to Clear Selection`);
+        let temp = this._selectedPiece;
         this._selectedPiece = null;
+        return temp;
     }
 }

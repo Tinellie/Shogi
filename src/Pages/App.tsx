@@ -20,7 +20,7 @@ function App() {
                 <GamePanel game={game}></GamePanel>
 
             </div>
-            <SettingsPanel settings={game.settings}/>
+            <SettingsPanel game={game}/>
             <Test game={game}></Test>
         </div>
 

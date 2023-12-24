@@ -1,4 +1,4 @@
-import {JSX} from "react";
+import React, {JSX} from "react";
 import {GridNumbersJSX} from "./GridNumbersJSX";
 
 import {GridRowJSX} from "./GridRowJSX";
@@ -15,11 +15,11 @@ export function map(length: number, func: (i: number) => JSX.Element){
 
 
 
-export function BoardJSX({game, boardData, handleClick, rowNoType, columnNoType}:
+export function BoardJSX({game, boardData, /*handleClick,*/ rowNoType, columnNoType}:
                           {game: Game, boardData: BoardData,
-                              handleClick: (x: number, y: number, updateGridMethod: (x: number, y: number)=>void) => void
+                              //handleClick: (x: number, y: number, updateGridMethod: (x: number, y: number)=>void) => void
                               rowNoType: string, columnNoType: string}) {
-
+    console.log(`RERENDER BoardJSX`)
     // function handleClick(x: number, y: number) {
     //     game.board.handleClick(x, y);
     //     setCount(count + 1);
@@ -27,13 +27,8 @@ export function BoardJSX({game, boardData, handleClick, rowNoType, columnNoType}
 
     let height = boardData.height - 1;
 
-    const updateGridsMethods: (()=>void)[][] = Array(boardData.height)
-    for (let i = 0; i < boardData.height; i++) {
-        updateGridsMethods[i] = Array(boardData.width);
-    }
-    function updateGrid(x: number, y: number){
-        updateGridsMethods[y][x]()
-    }
+
+
 
     return (
         <div id="game-board">
@@ -47,10 +42,10 @@ export function BoardJSX({game, boardData, handleClick, rowNoType, columnNoType}
                 <GridRowJSX
                     game={game}
                     y={height - y}
-                    handleClick = {
-                        (x) => {handleClick(x, height - y, updateGrid)}
-                    }
-                    updateGridMethods={updateGridsMethods}
+                    // handleClick = {
+                    //     (x) => {handleClick(x, height - y, updateGrid)}
+                    // }
+                    updateGridMethodsArray={game.renderManager.rerenderGridMethodsArray}
                 />
                 )
             }

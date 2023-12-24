@@ -10,6 +10,7 @@ export class GetData {
             board.size
         );
     }
+
     // static GetBoardData(game: Game, board: Board): BoardData {
     //     return new BoardData(
     //         board.rows.map((row, y) => this.GetRowData(game, row, y)),
@@ -19,6 +20,7 @@ export class GetData {
     // static GetRowData(game: Game, row: Grid[], y: number): RowData {
     //     return new RowData(row.map((_, x) => this.GetGridData(game, x, y)))
     // }
+
     // 获取格子的数据,<br/>
     // game: 当前游戏<br/>
     // grid: 需要获取数据的格子<br/>
