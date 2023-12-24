@@ -1,4 +1,4 @@
-import {PieceData} from "../../../Game/GetData/GetData";
+import {PieceData} from "../../../Game/GetData/Data";
 
 export function PieceJSX({piece}: { piece: PieceData }) {
     return (

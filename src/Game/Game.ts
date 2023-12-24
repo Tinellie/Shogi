@@ -3,6 +3,7 @@ import {Rules} from "./Rules/Rules";
 import {PieceManager} from "./Piece/PieceManager";
 import {PlayerManager} from "./Player/PlayerManager";
 import {Settings} from "./Settings";
+import {RenderManager} from "./RenderManager";
 
 
 export class Game {
@@ -15,8 +16,12 @@ export class Game {
 
     pieces: PieceManager;
     players: PlayerManager;
+    get currentPlayer() {
+        return this.players.current;
+    }
 
-    settings: Settings = new Settings();
+    settings: Settings;
+    renderManager: RenderManager;
 
 
     constructor(rules: Rules) {
@@ -29,6 +34,9 @@ export class Game {
         this.pieces.clearStatics();
         this.pieces.addStatics(rules.initPieces(this));
         this.board = this.rules.initBoard(this);
+
+        this.settings = new Settings();
+        this.renderManager = new RenderManager(this);
 
         Game.ins = this;
     }
