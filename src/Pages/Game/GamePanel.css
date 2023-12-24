@@ -33,6 +33,10 @@
 
     /*transition: 0.07s;*/
 }
+.sans-font {
+    font-family: "JetBrains Mono", "思源黑体 VF", sans-serif;
+}
+
 html, body, body > *{
 
 }

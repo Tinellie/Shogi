@@ -51,9 +51,9 @@ export class Shogi extends Rules{
             "         ",
             "         ",
             "         ",
-            "   l     ",
             "         ",
-            "      ppp",
+            "         ",
+            "ppppppppp",
             " b     r ",
             "lksgxgskl",
 

@@ -1,8 +1,10 @@
-import {JSX} from "react";
+import React, {JSX} from "react";
 import {GridNumbersJSX} from "./GridNumbersJSX";
 
-import {BoardData} from "../../../Game/GetData/GetData";
 import {GridRowJSX} from "./GridRowJSX";
+import {BoardData} from "../../../Game/GetData/Data";
+import {Game} from "../../../Game/Game";
+
 
 
 export function map(length: number, func: (i: number) => JSX.Element){
@@ -13,16 +15,20 @@ export function map(length: number, func: (i: number) => JSX.Element){
 
 
 
-export function BoardJSX({boardData, handleClick, rowNoType, columnNoType}:
-                          {boardData: BoardData, handleClick: (x: number, y: number) => void
+export function BoardJSX({game, boardData, /*handleClick,*/ rowNoType, columnNoType}:
+                          {game: Game, boardData: BoardData,
+                              //handleClick: (x: number, y: number, updateGridMethod: (x: number, y: number)=>void) => void
                               rowNoType: string, columnNoType: string}) {
-
+    console.log(`RERENDER BoardJSX`)
     // function handleClick(x: number, y: number) {
     //     game.board.handleClick(x, y);
     //     setCount(count + 1);
     // }
 
-    let height = boardData.rows.length - 1;
+    let height = boardData.height - 1;
+
+
+
 
     return (
         <div id="game-board">
@@ -32,10 +38,14 @@ export function BoardJSX({boardData, handleClick, rowNoType, columnNoType}:
             <div id="game-board-inner">
             {
                 map(
-                boardData.rows.length, (y) =>
+                boardData.height, (y) =>
                 <GridRowJSX
-                    row={boardData.rows[height - y]}
-                    handleClick = {(x) => {handleClick(x, height - y)}}
+                    game={game}
+                    y={height - y}
+                    // handleClick = {
+                    //     (x) => {handleClick(x, height - y, updateGrid)}
+                    // }
+                    updateGridMethodsArray={game.renderManager.rerenderGridMethodsArray}
                 />
                 )
             }

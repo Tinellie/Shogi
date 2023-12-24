@@ -16,6 +16,9 @@ export function getLatinLetter(no: number): string {
 
 export function GridNumbersJSX({width, height, rowNoType, columnNoType}:
                                 {width: number, height: number, rowNoType: string, columnNoType: string}){
+    console.log("- RERENDER Grid Numbers");
+
+
     function getNoDivs(length: number, type: string) {
         return map(length, (i) =>
             <div key={i}>

@@ -1,18 +1,25 @@
-import {RowData} from "../../../Game/GetData/GetData";
 import {map} from "./BoardJSX";
 import {GridJSX} from "./GridJSX";
+import {Game} from "../../../Game/Game";
 
-export function GridRowJSX({row, handleClick}:
-                                 { row: RowData, handleClick: (x: number) => void }) {
+export function GridRowJSX({game, y, /*handleClick,*/ updateGridMethodsArray}:
+                                 { game: Game, y: number,
+                                     //handleClick: (x: number) => void,
+                                     updateGridMethodsArray: (()=>void)[][]
+                                 }) {
+    console.log(`- RERENDER Grid Row #${y}`);
+
+
 
     return (
         <div className="board-row">
             {
                 map(
-                    row.grids.length, (x) =>
+                    game.board.width, (x) =>
                         <GridJSX
-                            grid={row.grids[x]}
-                            handleClick={() => handleClick(x)}
+                            game={game}
+                            x={x} y={y}
+                            updateGridMethodsArray={updateGridMethodsArray}
                         />
                 )
             }

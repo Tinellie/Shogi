@@ -1,4 +1,5 @@
 import {Piece} from "../Piece/Piece";
+import {Grid} from "../Board";
 
 
 export class Player {
@@ -38,8 +39,15 @@ export class Player {
     }
 
     //检测是否敌对玩家
-    isHostileTo(player: Player) {
+    isHostileTo(player: Player): boolean {
         return player.direction !== this.direction;
+    }
+
+    isOwnGrid(grid: Grid): boolean {
+        return grid?.belongTo(this) ?? false;
+    }
+    isHostileGrid(grid: Grid): boolean {
+        return grid !== null && this.isHostileTo(grid.player);
     }
 
     addPiece(piece: Piece): void {
@@ -84,7 +92,11 @@ export class Player {
         console.log(`- select ${piece.id}`)
         this._selectedPiece = piece;
     }
-    selectClear() : void {
+    selectClear() : Piece {
+        if (this._selectedPiece === null)
+            throw new Error(`${this} has no Selected Piece, but tried to Clear Selection`);
+        let temp = this._selectedPiece;
         this._selectedPiece = null;
+        return temp;
     }
 }

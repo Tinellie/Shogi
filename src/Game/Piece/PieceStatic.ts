@@ -28,10 +28,10 @@ export class PieceStatic {
     //棋子静态资源判断移动的逻辑
     //给定相对坐标, 返回格子是否能够移动
     public isWalkable : IsWalkableFunc
-        = (rx: number, ry: number, piece: GetPieceFunc, isAlliance: IsAllianceFunc): boolean =>
-        isAlliance(piece(rx, ry)) ? false :
+        = (rX: number, rY: number, piece: GetPieceFunc, isAlliance: IsAllianceFunc): boolean =>
+        isAlliance(piece(rX, rY)) ? false :
             //walkableGrids不为null, 且数组中能找到指定格子
-            this.walkableGrids?.find((p: Pos) => p.x === rx && p.y === ry) != null;
+            this.walkableGrids?.find((p: Pos) => p.x === rX && p.y === rY) != null;
 
 
     get promotable() : boolean {

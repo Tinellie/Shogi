@@ -13,7 +13,4 @@ export abstract class Rules {
     abstract initBoard: ((game: Game) => Board);// | null;
 
 
-
-    constructor() {
-    }
 }
