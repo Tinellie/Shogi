@@ -1,0 +1,15 @@
+#settings-panel{
+    margin: 10px;
+}
+#settings-panel, #settings-panel div {
+    display: flex;
+    align-items: center;
+}
+#settings-dont-switch-player {
+    margin-right: 20px;
+}
+
+#settings-rerender-all-button {
+    width: 120px;
+    height: 25px;
+}

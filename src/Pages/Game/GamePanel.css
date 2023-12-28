@@ -7,15 +7,6 @@
     /*--color-player2: #eaa;*/
 
 
-    --grid-size: 70px;
-    --grid-margin: 0px;/*5px;*/
-    --grid-padding: 5px;/*5px;*/
-
-    --grid-font-size: 22px;
-
-    --grid-svg-margin: 5%;
-    --grid-svg-size: calc(100% - var(--grid-svg-margin) * 2);
-
     --color-player1: #a0d5ef;
     --color-player2: #e0a5d0;
     --color-captureable-grid: #e56;
@@ -103,52 +94,6 @@ button {
     transform: translate(calc(var(--grid-size) * -0.6), calc(var(--grid-margin) * -1));
 }
 
-
-.grid, .grid > div {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
-.piece svg {
-    position: absolute;
-    width: var(--grid-svg-size);
-    height: var(--grid-svg-size);
-    top: var(--grid-svg-margin);
-    left: var(--grid-svg-margin);
-}
-.piece > svg > path {
-    fill: #1b2128;
-}
-.piece > p {
-    z-index: 10;
-}
-
-
-/*敌方棋子*/
-.piece.player2 > * {
-    transform: rotate(180deg);
-    transition: 0s;
-}
-.piece > p {
-    color: var(--color-player1);
-}
-.piece > svg > path {
-    stroke: var(--color-player1);
-}
-.piece.player2 > p {
-    color: var(--color-player2);
-}
-.piece.player2 > svg > path {
-    stroke: var(--color-player2);
-}
-
-/* 格子边框 1px 粗细 */
-.grid {
-    border: 1px solid var(--color-light2);
-    border-radius: 0;
-}
 
 .board-row {
     display: flex;
