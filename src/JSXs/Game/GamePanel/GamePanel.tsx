@@ -1,6 +1,6 @@
-import {BoardJSX} from "./Board/BoardJSX";
-import {Game} from "../../Game/Game";
-import {GetData} from "../../Game/GetData/GetData";
+import {BoardJSX} from "../Board/BoardJSX/BoardJSX";
+import {Game} from "../../../GameLogic/Game";
+import {GetData} from "../../../GameLogic/GetData/GetData";
 import {useEffect, useState} from "react";
 
 import './GamePanel.css';

@@ -1,6 +1,6 @@
-import {Game} from "../Game/Game";
-import {Pos} from "../Game/Pos";
-import {Piece} from "../Game/Piece/Piece";
+import {Game} from "../../GameLogic/Game";
+import {Pos} from "../../GameLogic/Pos";
+import {Piece} from "../../GameLogic/Piece/Piece";
 import React, {useState} from "react";
 
 import './Test.css';
@@ -42,7 +42,7 @@ export function Test({game} : {game: Game}) {
     //const isMounted = useRef(false);
 
     // if (!isMounted.current) {
-    //   g.current = new Game(new Shogi());
+    //   g.current = new GameLogic(new Shogi());
     //
     //   console.warn(`${g}`)
     //   console.warn(`${g.board}`)

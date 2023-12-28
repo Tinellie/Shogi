@@ -11,13 +11,13 @@ export class GetData {
         );
     }
 
-    // static GetBoardData(game: Game, board: Board): BoardData {
+    // static GetBoardData(game: GameLogic, board: Board): BoardData {
     //     return new BoardData(
     //         board.rows.map((row, y) => this.GetRowData(game, row, y)),
     //         board.size
     //     );
     // }
-    // static GetRowData(game: Game, row: Grid[], y: number): RowData {
+    // static GetRowData(game: GameLogic, row: GridJSX[], y: number): RowData {
     //     return new RowData(row.map((_, x) => this.GetGridData(game, x, y)))
     // }
 
@@ -29,9 +29,13 @@ export class GetData {
         let grid: Grid = game.board.grid(x, y);
         let status: GridStatus = GridStatus.normal;
         //如果格子可以走动
-        if (game.currentPlayer.selectedPiece?.isValidWalkableAbs(x, y)) status =
+        if (game.currentPlayer.selectedPiece?.pos?.equal(x, y)) {
+            status = GridStatus.selected;
+        }
+        if (game.currentPlayer.selectedPiece?.isValidWalkableAbs(x, y))
+            status =
             game.currentPlayer.isHostileGrid(grid) ?
-                GridStatus.movableCaptureble : //如果格子是敌对玩家持有的
+                GridStatus.movableCapturable : //如果格子是敌对玩家持有的
                 GridStatus.movable; //如果不是
 
         return new GridData(status,

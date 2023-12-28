@@ -1,4 +1,4 @@
-import {map} from "./BoardJSX";
+import {map} from "./BoardJSX/BoardJSX";
 import * as cn from "chinese-numbering";
 
 
@@ -16,7 +16,7 @@ export function getLatinLetter(no: number): string {
 
 export function GridNumbersJSX({width, height, rowNoType, columnNoType}:
                                 {width: number, height: number, rowNoType: string, columnNoType: string}){
-    console.log("- RERENDER Grid Numbers");
+    console.log("- RERENDER GridJSX Numbers");
 
 
     function getNoDivs(length: number, type: string) {

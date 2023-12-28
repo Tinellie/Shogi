@@ -1,9 +1,9 @@
 import React, {JSX} from "react";
-import {GridNumbersJSX} from "./GridNumbersJSX";
+import {GridNumbersJSX} from "../GridNumbersJSX";
 
-import {GridRowJSX} from "./GridRowJSX";
-import {BoardData} from "../../../Game/GetData/Data";
-import {Game} from "../../../Game/Game";
+import {GridRowJSX} from "../GridRowJSX";
+import {BoardData} from "../../../../GameLogic/GetData/Data";
+import {Game} from "../../../../GameLogic/Game";
 
 
 

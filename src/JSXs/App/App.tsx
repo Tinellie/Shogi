@@ -1,11 +1,11 @@
 
 import './App.css';
 
-import {Test} from "./Test";
-import {GamePanel} from "./Game/GamePanel";
-import {Game} from "../Game/Game";
-import {Shogi} from "../Game/Rules/Shogi";
-import {SettingsPanel} from "./Game/SettingsPanel";
+import {Test} from "../Test/Test";
+import {GamePanel} from "../Game/GamePanel/GamePanel";
+import {Game} from "../../GameLogic/Game";
+import {Shogi} from "../../GameLogic/Rules/Shogi";
+import {SettingsPanel} from "../Game/SettingsPanel/SettingsPanel";
 
 
 

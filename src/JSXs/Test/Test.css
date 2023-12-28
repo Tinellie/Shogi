@@ -13,7 +13,7 @@
     margin: 20px;
 }
 
-input, button {
+.Test input, button {
     margin: 5px;
     height: 20px;
     width: 50px;
@@ -21,15 +21,15 @@ input, button {
     border: solid 1px #bbb;
     border-radius: 5px;
 }
-input:hover, button:hover {
+.Test input:hover, .Test button:hover {
     background-color: #101918;
 }
-input:active, button:active {
+.Test input:active, .Test button:active {
     background-color: #050909;
     border: solid 2px #bbb;
 }
 
-button{
+.Test button{
     width: fit-content;
 }
 #PlayerData {

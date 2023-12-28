@@ -31,6 +31,10 @@ export class Pos {
         return `(${this.x}, ${this.y})`
     }
 
+    equal(x: number, y: number): boolean {
+        return x === this.x && y === this.y;
+    }
+
     get decompose() {
         return [this.x, this.y];
     }

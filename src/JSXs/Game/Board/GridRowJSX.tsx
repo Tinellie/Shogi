@@ -1,6 +1,6 @@
-import {map} from "./BoardJSX";
-import {GridJSX} from "./GridJSX";
-import {Game} from "../../../Game/Game";
+import {map} from "./BoardJSX/BoardJSX";
+import {GridJSX} from "./GridJSX/GridJSX";
+import {Game} from "../../../GameLogic/Game";
 
 export function GridRowJSX({game, y, /*handleClick,*/ updateGridMethodsArray}:
                                  { game: Game, y: number,

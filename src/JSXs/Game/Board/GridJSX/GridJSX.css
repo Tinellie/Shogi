@@ -27,33 +27,6 @@
     transition: 0.07s;
 }
 
-.grid.selectable {
-    --color-stripe: var(--color-player1);
-}
-.grid.selectable.player2 {
-    --color-stripe: var(--color-player2);
-}
-
-.grid.selectable{
-    --stripe-start: -0.5%;
-    --stripe-end: calc(var(--stripe-start) + 1.5%);
-    --stripe-gap-end: 12%;
-
-    background: repeating-linear-gradient(
-            45deg,
-            var(--color-stripe) var(--stripe-start),
-            var(--color-stripe) var(--stripe-end),
-            var(--bg-color) var(--stripe-end),
-            var(--bg-color) var(--stripe-gap-end)
-    );
-}
-.grid.selectable .piece.player2:not(.player1) {
-    background: var(--color-captureable-grid);
-}
-.grid.selectable .piece.player1:not(.player2) {
-    background: var(--color-captureable-grid);
-}
-
 
 
 

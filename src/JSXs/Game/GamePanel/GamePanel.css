@@ -12,6 +12,12 @@
     --color-captureable-grid: #e56;
 
     --inner-border-radius: 10px;
+
+    --z-index-piece: 200;
+    --z-index-piece-name: 210;
+    --z-index-selected-effect: 110;
+    --z-index-movable-effect: 100;
+    --z-index-hover-effect: 10;
 }
 
 *, *::after, *::before {

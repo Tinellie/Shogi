@@ -14,7 +14,7 @@ export class Board {
     public get height() { return this.size.y; }
 
     private readonly grids : Grid[];
-    //grids : Grid[][];
+    //grids : GridJSX[][];
     grid(x : number, y : number) : Grid {
         return this.grids[y * this.width + x];
     }

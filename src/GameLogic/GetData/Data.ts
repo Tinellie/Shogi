@@ -25,7 +25,7 @@ export class PieceData {
 export enum GridStatus {
     normal,
     movable,
-    movableCaptureble,
+    movableCapturable,
     selected,
 
 }
@@ -45,12 +45,12 @@ export class GridData {
 
     status: GridStatus;
     piece: PieceData | null | undefined;
-    colorOfPlayer: number;
+    currentPlayer: number;
 
     constructor(status: GridStatus, piece: PieceData | null | undefined, colorOfPlayer: number) {
         this.status = status;
         this.piece = piece;
-        this.colorOfPlayer = colorOfPlayer;
+        this.currentPlayer = colorOfPlayer;
     }
 }
 

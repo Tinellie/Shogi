@@ -1,6 +1,6 @@
-import {map} from "./Board/BoardJSX";
+import {map} from "../Board/BoardJSX/BoardJSX";
 
-import {CapturedPieceData} from "../../Game/GetData/Data";
+import {CapturedPieceData} from "../../../GameLogic/GetData/Data";
 
 
 export function CapturedPiecePanel({capturedPieceData} : {capturedPieceData: CapturedPieceData}){

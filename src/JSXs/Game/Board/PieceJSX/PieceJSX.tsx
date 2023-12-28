@@ -1,4 +1,4 @@
-import {PieceData} from "../../../Game/GetData/Data";
+import {PieceData} from "../../../../GameLogic/GetData/Data";
 
 import "./PieceJSX.css"
 
