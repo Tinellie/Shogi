@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Shogi/static/css/main.5bf62d56.css",
-    "main.js": "/Shogi/static/js/main.ae5873d3.js",
+    "main.css": "/Shogi/static/css/main.5a3c9fb8.css",
+    "main.js": "/Shogi/static/js/main.818da713.js",
     "static/js/787.a91ad580.chunk.js": "/Shogi/static/js/787.a91ad580.chunk.js",
     "static/media/SourceHanSerifTC-Bold.otf": "/Shogi/static/media/SourceHanSerifTC-Bold.eb0b8346b3dbc4cd965b.otf",
     "static/media/SourceHanSerifTC-Medium.otf": "/Shogi/static/media/SourceHanSerifTC-Medium.c13e97e763ea0d3d2d94.otf",
@@ -14,12 +14,12 @@
     "static/media/WangHanZong-SemiCursive-Medium.ttf": "/Shogi/static/media/WangHanZong-SemiCursive-Medium.e73d546d3b552c38a3b1.ttf",
     "static/media/ZhongQiLiuJiang-Cursive.ttf": "/Shogi/static/media/ZhongQiLiuJiang-Cursive.1a72e18c56c181f1250e.ttf",
     "index.html": "/Shogi/index.html",
-    "main.5bf62d56.css.map": "/Shogi/static/css/main.5bf62d56.css.map",
-    "main.ae5873d3.js.map": "/Shogi/static/js/main.ae5873d3.js.map",
+    "main.5a3c9fb8.css.map": "/Shogi/static/css/main.5a3c9fb8.css.map",
+    "main.818da713.js.map": "/Shogi/static/js/main.818da713.js.map",
     "787.a91ad580.chunk.js.map": "/Shogi/static/js/787.a91ad580.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5bf62d56.css",
-    "static/js/main.ae5873d3.js"
+    "static/css/main.5a3c9fb8.css",
+    "static/js/main.818da713.js"
   ]
 }
