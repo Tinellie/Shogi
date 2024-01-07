@@ -1,0 +1,61 @@
+
+:root {
+    --selected-color: #fff;
+    --selected-width: 3px;
+    --selected-radius: 5px;
+    --selected-each-corner-size: 22px;
+    --selected-size: 91%;
+    --selected-size-hover: 100%;
+}
+
+.grid.selected {
+    /*border: 1px solid var(--selected-color);*/
+}
+
+.grid .effects .selected-effect {
+    z-index: var(--z-index-selected-effect);
+    position: absolute;
+    width: var(--selected-size);
+    height: var(--selected-size);
+
+    transition: 0.05s ease-out;
+}
+.grid:hover .effects .selected-effect {
+    width: var(--selected-size-hover);
+    height: var(--selected-size-hover);
+}
+
+.grid .effects .selected-effect > div {
+    border: 0 #fff solid;
+    width: var(--selected-each-corner-size);
+    height: var(--selected-each-corner-size);
+    position: absolute;
+}
+.grid .effects .selected-effect > div:nth-child(1){
+    top: 0;
+    left: 0;
+    border-top: var(--selected-width) solid;
+    border-left: var(--selected-width) solid;
+    border-top-left-radius: var(--selected-radius);
+}
+.grid .effects .selected-effect > div:nth-child(2){
+    top: 0;
+    right: 0;
+    border-top: var(--selected-width) solid;
+    border-right: var(--selected-width) solid;
+    border-top-right-radius: var(--selected-radius);
+}
+.grid .effects .selected-effect > div:nth-child(3){
+    bottom: 0;
+    left: 0;
+    border-bottom: var(--selected-width) solid;
+    border-left: var(--selected-width) solid;
+    border-bottom-left-radius: var(--selected-radius);
+}
+.grid .effects .selected-effect > div:nth-child(4){
+    bottom: 0;
+    right: 0;
+    border-bottom: var(--selected-width) solid;
+    border-right: var(--selected-width) solid;
+    border-bottom-right-radius: var(--selected-radius);
+}

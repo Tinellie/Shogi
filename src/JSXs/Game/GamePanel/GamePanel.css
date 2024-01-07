@@ -1,0 +1,109 @@
+
+:root {
+    --color-light1: #ddd;
+    --color-light2: #999;
+    --color-light3: #555;
+    /*--color-player1: #ace;*/
+    /*--color-player2: #eaa;*/
+
+
+    --color-player1: #a0d5ef;
+    --color-player2: #e0a5d0;
+    --color-captureable-grid: #e56;
+
+    --inner-border-radius: 10px;
+
+    --z-index-piece: 200;
+    --z-index-piece-name: 210;
+    --z-index-selected-effect: 110;
+    --z-index-movable-effect: 100;
+    --z-index-hover-effect: 10000;
+}
+
+*, *::after, *::before {
+    box-sizing: border-box;
+    margin: 0;
+
+    font-family: "SH Serif - Regular", "Source Han Serif K VF", "思源宋体 VF", "思源黑体 VF", serif;
+    font-weight: normal;
+    color: var(--color-light1);
+
+    /*transition: 0.07s;*/
+}
+.sans-font {
+    font-family: "JetBrains Mono", "思源黑体 VF", sans-serif;
+}
+
+html, body, body > *{
+
+}
+.App {
+    padding: 20px;
+}
+.App > div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    /*align-items: center;*/
+}
+
+body {
+    background: #1b2128;
+}
+
+button {
+    vertical-align: middle;
+}
+
+
+#game-board {
+    align-self: center;
+
+    border: 3px solid var(--color-light2);
+    border-radius: 14px;
+    /*overflow: hidden;*/
+
+    padding: 3px;
+}
+#game-board-inner {
+    align-self: center;
+
+    border: 1px solid var(--color-light2);
+    border-radius: var(--inner-border-radius);
+    /*overflow: hidden;*/
+}
+
+.column-no div {
+    display: inline-block;
+
+    width: var(--grid-size);
+
+    height: calc(var(--grid-size) * 0.6);
+    margin: var(--grid-margin);
+}
+.row-no div {
+    display: block;
+
+    line-height: var(--grid-size);
+    height: var(--grid-size);
+
+    width: calc(var(--grid-size) * 0.6);
+    margin: calc(2*var(--grid-margin));
+}
+.column-no {
+    position: absolute;
+    transform: translate(0, calc(var(--grid-size) * -0.6));
+}
+.row-no {
+    position: absolute;
+    transform: translate(calc(var(--grid-size) * -0.6), calc(var(--grid-margin) * -1));
+}
+
+
+.board-row {
+    display: flex;
+}
+
+
+

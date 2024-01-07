@@ -1,0 +1,35 @@
+/*悬浮点击效果*/
+.grid:hover .hover-effect {
+    background-color: #0006;
+}
+.grid .effects, .grid .effects > * {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.grid:hover::after {
+    --dp: 5px;
+
+    position: absolute;
+    top: calc(var(--dp) * -1);
+    left: calc(var(--dp) * -1);
+
+    content: "";
+    width: calc(100% + var(--dp) + var(--dp));
+    height: calc(100% + var(--dp) + var(--dp));
+    z-index: var(--z-index-hover-effect);
+
+    border: var(--color-light1) 3px solid;
+    border-radius: 5px;
+
+    animation: gridHover 0.1s ease-out;
+}
+
+@keyframes gridHover {
+    from { --dp: 1px; }
+    to { --dp: 4px; }
+}
+
+.grid:active {
+    background-color: #0006;
+}
