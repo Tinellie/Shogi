@@ -17,7 +17,7 @@
     --z-index-piece-name: 210;
     --z-index-selected-effect: 110;
     --z-index-movable-effect: 100;
-    --z-index-hover-effect: 10;
+    --z-index-hover-effect: 10000;
 }
 
 *, *::after, *::before {

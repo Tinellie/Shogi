@@ -28,7 +28,10 @@ export class RenderManager{
         console.warn(`Rerender Selected Grid (${selectedGrid})`);
         this.rerenderGrid(selectedGrid.x, selectedGrid.y);
     }
-    public selectClear(){
+    public selectClear(previousSelectedGrid: Pos | undefined){
+        if (previousSelectedGrid !== undefined)
+            this.rerenderGrid(previousSelectedGrid.x, previousSelectedGrid.y);
+
         for (let grid of this.walkableGrids) {
             console.warn(`Rerender Walkable Grid ${grid} - Clear Effect`);
             this.rerenderGrid(grid.x, grid.y);

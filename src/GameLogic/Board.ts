@@ -77,14 +77,14 @@ export class Board {
 
             //console.log(`- belong to current player? ${currentPiece.belongTo(player)}`);
 
-            this.game.renderManager.selectClear();
+            this.game.renderManager.selectClear(player.selectedPiece?.pos);
             player.select(currentPiece);
             this.game.renderManager.select(player, new Pos(x, y));
 
 
         }
         else if (player.selectedPiece !== null) {
-            let piece = player.selectedPiece.pos;
+            let previousSelectedPiece = player.selectedPiece.pos;
 
             //如果已经选择了棋子, 且新点选的格子不属于自己
             //那么判断是否能够移动
@@ -95,8 +95,8 @@ export class Board {
             //清除已选棋子;
             player.selectClear();
 
-            this.game.renderManager.selectClear();
-            this.game.renderManager.rerenderGrid(piece.x, piece.y);
+            this.game.renderManager.selectClear(previousSelectedPiece);
+            this.game.renderManager.rerenderGrid(previousSelectedPiece.x, previousSelectedPiece.y);
 
 
         }

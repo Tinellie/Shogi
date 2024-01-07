@@ -12,6 +12,7 @@ export class Player {
 
     private _selectedPiece : Piece | null = null;
     public get selectedPiece(): Piece | null { return this._selectedPiece; }
+    public get hasSelectedPiece(): boolean { return this._selectedPiece !== null; }
 
     constructor(id: number, direction : number) {
         this.id = id;
@@ -88,10 +89,13 @@ export class Player {
         this.capturedPieces.push(piece);
     }
 
-    select(piece: Piece) : void {
-        console.log(`- select ${piece.id}`)
+    select(piece: Piece) : Piece | null {
+        let temp = this._selectedPiece;
+        console.log(`- select ${piece.id}`);
         this._selectedPiece = piece;
+        return temp;
     }
+
     selectClear() : Piece {
         if (this._selectedPiece === null)
             throw new Error(`${this} has no Selected Piece, but tried to Clear Selection`);
