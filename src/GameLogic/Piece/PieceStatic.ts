@@ -92,7 +92,7 @@ export class PieceStaticLancePromoted extends PieceStaticLance {
         super(name, weight, symbol);
         this.isWalkable =
             (x: number, y: number, piece: GetPieceFunc, isAlliance: IsAllianceFunc) : boolean =>
-                this.lanceWalkable(x, y, piece, isAlliance) && King.isWalkable(x, y, piece, isAlliance);
+                this.lanceWalkable(x, y, piece, isAlliance) || King.isWalkable(x, y, piece, isAlliance);
     }
 }
 
