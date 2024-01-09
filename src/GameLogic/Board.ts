@@ -195,7 +195,7 @@ export class Board {
 
 
     //检查棋子 piece 移动到 pos 是否合法 (是否会将军等问题)
-    checkMoveValidity(piece: Piece, pos: Pos): boolean {
+    checkMoveValidity(piece: Piece, moveTo: Pos): boolean {
         // if(/*正在将军*/) {
         //     //检查移动后是否解决将军
         //     if (/*没解决*/) return false;
@@ -206,6 +206,24 @@ export class Board {
         // }
 
         return true;
+    }
+    checkPromoteValidity(piece: Piece, moveFrom: Pos, moveTo: Pos): boolean {
+        //如果不能升变, 直接返回 false
+        if (!piece.promotable) return false;
+
+        // //检查棋子的特殊升变规则
+        // let rule = piece.static.promoteRule ?? (() => false);
+        // //检查全局的升变规则 (或)
+        // rule(moveFrom, moveTo) || this.game.rules.globalPromoteRule(piece, moveFrom, moveTo);
+
+        return this.game.rules.globalPromoteRule(piece, moveFrom, moveTo);
+
+    }
+    checkPromote(piece: Piece, moveFrom: Pos, moveTo: Pos): boolean {
+        if (this.checkPromoteValidity(piece, moveFrom, moveTo)) {
+            piece.promote();
+            return true;
+        } else return false;
     }
 
 
@@ -238,30 +256,35 @@ export class Board {
 
 
     //移动棋子到棋盘上指定位置, 如果目标格子被占据会报错
-    private move(piece: Piece, pos: Pos){
+    private move(piece: Piece, moveTo: Pos){
         //把棋子从棋盘上移走
-        this.remove(piece);
-        this.place(piece, pos);
+        let moveFrom = this.remove(piece);
+        console.error(`this.checkPromoteValidity(${piece}, ${moveFrom}, ${moveTo}) = ${this.checkPromoteValidity(piece, moveFrom, moveTo)}`)
+        this.checkPromote(piece, moveFrom, moveTo)
+        this.place(piece, moveTo);
     }
 
 
 
     //放置棋子, 如果格子被占据, 会报错
-    public place(piece: Piece, pos: Pos) {
+    public place(piece: Piece, pos: Pos): void {
         if (this.occupied(pos))
             throw new Error(`Piece ${this} tried to move to Grid ${pos} which has been occupied by ${this.gridP(pos)}`);
         this.setGrid(pos, piece);
     }
     //移除棋子, 如果棋子不存在, 将会报错
-    public remove(piece: Piece) {
+    public remove(piece: Piece): Pos {
         try {
-            this.removeAt(this.getPos(piece));
+            let p: Pos = this.getPos(piece);
+            this.removeAt(p);
+            return p;
         }catch (e) {
             throw new Error(`${e}, but trying to Remove piece from this Board`);
         }
+
     }
     //移除位于指定位置的格子
-    public removeAt(pos: Pos) {
+    public removeAt(pos: Pos): void {
         this.setGrid(pos, null);
     }
 

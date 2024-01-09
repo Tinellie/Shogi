@@ -16,7 +16,7 @@ export class PlayerManager {
         this.game = game;
         this.list = [];
         for (let i = 0; i < playersNo; i++){
-            this.list.push(new Player(i, (i % 2 === 0) ? 1: -1))
+            this.list.push(new Player(game, i, (i % 2 === 0) ? 1: -1))
 
         }
         this.currentIndex = 0;

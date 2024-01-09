@@ -3,6 +3,8 @@ import {Board} from "../Board";
 import {Game} from "../Game";
 import {Pos} from "../Pos";
 import {PieceStatic} from "./PieceStatic";
+import {Simulate} from "react-dom/test-utils";
+import reset = Simulate.reset;
 
 
 export class Piece {
@@ -140,6 +142,34 @@ export class Piece {
         this._player.removePiece(this);
         this._player = newOwner;
         newOwner.addPiece(this);
+    }
+
+
+    get promotable() { return this.static.promotable; }
+    public promote(): void {
+        console.error(`- Promote ${this}`);
+        if (this.static.promote === null) throw new Error(`Tried to Promote Piece ${this}, but it isn't Promotable`);
+        this.static = this.static.promote();
+    }
+    public tryPromote(): boolean {
+        if (this.promotable) {
+            this.promote();
+            return true;
+        }
+        return false
+    }
+
+    get resetable() { return this.static.resetable; }
+    public reset(): void {
+        if (this.static.reset === null) throw new Error(`Tried to Reset Piece ${this}, but it isn't Resetable`);
+        this.static = this.static.reset();
+    }
+    public tryReset(): boolean {
+        if (this.resetable) {
+            this.reset();
+            return true;
+        }
+        return false
     }
 
 

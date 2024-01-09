@@ -1,8 +1,11 @@
 import {Piece} from "../Piece/Piece";
 import {Grid} from "../Board";
+import {Game} from "../Game";
 
 
 export class Player {
+    private game: Game;
+
     readonly id: number;
 
     direction : number;
@@ -14,7 +17,8 @@ export class Player {
     public get selectedPiece(): Piece | null { return this._selectedPiece; }
     public get hasSelectedPiece(): boolean { return this._selectedPiece !== null; }
 
-    constructor(id: number, direction : number) {
+    constructor(game: Game, id: number, direction : number) {
+        this.game = game;
         this.id = id;
         //this.capturedPiece = [];
         this.direction = direction;
@@ -65,9 +69,13 @@ export class Player {
 
     // 捕获棋子<br/>
     // 会自动移交棋子所有权<br/>
+    // 会自动 reset 棋子<br/>
     // 随后按照棋子权值由大到小, 把捕获的棋子插入到 capturedPiece 中
     capturePiece(piece: Piece): void{
         piece.transferOwnership(this);
+        if (this.game.rules.resetCapturePiece){
+            piece.tryReset();
+        }
 
         //从 capturedPieces 开头遍历
         for (let i = 0; i < this.capturedPieces.length; i++) {

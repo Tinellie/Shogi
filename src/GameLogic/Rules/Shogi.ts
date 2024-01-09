@@ -18,9 +18,14 @@ import {
     SilverPromoted
 } from "../Piece/PieceShogi";
 import * as cn from "chinese-numbering";
+import {Piece} from "../Piece/Piece";
+import {Pos} from "../Pos";
 
 
 export class Shogi extends Rules{
+
+    Size: Pos = new Pos(9, 9);
+
 
     override styledIndex = (x: number, y: number) => `${x+1}${cn.numberToChinese(y+1)}`
 
@@ -59,6 +64,16 @@ export class Shogi extends Rules{
 
         ], game.players.list);
     }
+
+    override globalPromoteRule = (piece: Piece, moveFrom: Pos, moveTo: Pos): boolean => {
+        let [minY, maxY] =
+            (piece.player.direction === 1)?
+                [this.Size.y - 3, this.Size.y - 1] : [0, 2];
+        return (minY <= moveFrom.y && moveFrom.y <= maxY) ||
+               (minY <= moveTo.y   && moveTo.y   <= maxY)
+    }
+
+    override resetCapturePiece: boolean = true;
 
 
 }

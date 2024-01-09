@@ -34,11 +34,20 @@ export class PieceStatic {
             this.walkableGrids?.find((p: Pos) => p.x === rX && p.y === rY) != null;
 
 
+    // 返回是否可以升变
     get promotable() : boolean {
         return this.promote !== null;
     }
-    promote: () => (PieceStatic | null) = () => null;
-    reset: () => (PieceStatic | null) = () => null;
+    // 返回是否可以升变
+    get resetable() : boolean {
+        return this.reset !== null;
+    }
+    // 升变的对象, 若是 null 表示无法升变, 否则返回升变后的 piece static
+    promote: (() => PieceStatic) | null = null;
+    // 升变前的对象, 若是 null 表示无法升变, 否则返回升变前的 piece static
+    reset: (() => PieceStatic) | null = null;
+
+    promoteRule: ((p1: Pos,p2:  Pos) => boolean) | null = null;
 }
 export class PieceStaticLance extends PieceStatic {
 
